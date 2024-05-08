@@ -8,36 +8,6 @@
 #include"EBO.h"
 
 
-
-// Vertices coordinates
-GLfloat vertices[] =
-{ 
-	0.0f, 0.0f, 0.0f, 0.0f, 0.0f,  1.0f, //center
-	0.0f, 0.5f, 0.0f, 0.0f, 0.0f,  0.0f, //top
-	0.0f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f, //bottom
-	0.5f, 0.0f, 0.0f, 0.0f, 0.0f,  0.0f, //right
-	-0.5f, 0.0f, 0.0f, 0.0f, 0.0f,  0.0f, //left
-	0.3535f, 0.3535f, 0.0f, 0.0f, 0.0f,  0.0f, //top-right
-	-0.3535f, 0.3535f, 0.0f, 0.0f, 0.0f,  0.0f, //top-left
-	0.3535f, -0.3535f, 0.0f, 0.0f, 0.0f,  0.0f, //bot-right
-	-0.3535f, -0.3535f, 0.0f, 0.0f, 0.0f,  0.0f, //bot-left
-};
-
-// Indices for vertices order
-GLuint indices[] =
-{
-	0, 1, 5,
-	0, 1, 6,
-	0, 3, 5,
-	0, 4, 6,
-	0, 2, 7,
-	0, 2, 8,
-	0, 3, 7,
-	0, 4, 8,
-};
-
-
-
 int main()
 {
 	// Initialize GLFW
@@ -69,12 +39,36 @@ int main()
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, 800, 800);
 
+	//------------Building Vertex and Index buffers-------------
+	// Vertices coordinates
+	GLfloat vertices[] =
+	{
+		0.0f, 0.0f, 0.0f, 0.0f,  1.0f, 1.0f,//center
+		0.0f, 0.5f, 0.0f, 0.0f,  1.0f, 0.0f,//top
+		0.0f, -0.5f, 0.0f, 0.0f,  1.0f, 0.0f,//bottom
+		0.5f, 0.0f, 0.0f, 0.0f,  1.0f, 0.0f,//right
+		-0.5f, 0.0f, 0.0f, 0.0f,  1.0f, 0.0f,//left
+		0.3535f, 0.3535f, 0.0f, 0.0f,  1.0f, 0.0f,//top-right
+		-0.3535f, 0.3535f, 0.0f, 0.0f,  1.0f, 0.0f,//top-left
+		0.3535f, -0.3535f, 0.0f, 0.0f,  1.0f, 0.0f,//bot-right
+		-0.3535f, -0.3535f,  0.0f, 0.0f,  1.0f, 0.0f,//bot-left
+	};
 
+	// Indices for vertices order
+	GLuint indices[] =
+	{
+		0, 1, 5,
+		0, 1, 6,
+		0, 3, 5,
+		0, 4, 6,
+		0, 2, 7,
+		0, 2, 8,
+		0, 3, 7,
+		0, 4, 8,
+	};
 
 	// Generates Shader object using shaders defualt.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
-
-
 
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
@@ -86,8 +80,8 @@ int main()
 	EBO EBO1(indices, sizeof(indices));
 
 	// Links VBO to VAO
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3*sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 0, 2, GL_FLOAT, 6 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 4, GL_FLOAT, 6 * sizeof(float), (void*)(2*sizeof(float)));
 	// Unbind all to prevent accidentally modifying them
 	VAO1.Unbind();
 	VBO1.Unbind();

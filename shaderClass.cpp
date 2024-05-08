@@ -36,7 +36,7 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
 	glCompileShader(fragmentShader);
 	compileErrors(vertexShader, "FRAGMENT");
-
+	
 	//Creating the shader program
 	ID = glCreateProgram();
 	glAttachShader(ID, vertexShader);
