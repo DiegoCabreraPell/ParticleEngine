@@ -6,23 +6,22 @@
 #include"VAO.h"
 #include"VBO.h"
 #include"EBO.h"
+#include"vertexGenerator.h"
+#include"particle2DClass.h"
 
+#define NUM_PARTICLES_MAIN 2
 
 int main()
 {
-	// Initialize GLFW
 	glfwInit();
 
-	// Tell GLFW what version of OpenGL we are using 
-	// In this case we are using OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	// Tell GLFW we are using the CORE profile
-	// So that means we only have the modern functions
+	
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
-	GLFWwindow* window = glfwCreateWindow(800, 800, "YoutubeOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(800, 800, "Particle Simulation", NULL, NULL);
+
 	// Error check if the window fails to create
 	if (window == NULL)
 	{
@@ -30,45 +29,34 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
-	// Introduce the window into the current context
+	
 	glfwMakeContextCurrent(window);
 
-	//Load GLAD so it configures OpenGL
+	//openGL environment
 	gladLoadGL();
-	// Specify the viewport of OpenGL in the Window
-	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
+
 	glViewport(0, 0, 800, 800);
 
-	//------------Building Vertex and Index buffers-------------
-	// Vertices coordinates
-	GLfloat vertices[] =
-	{
-		0.0f, 0.0f, 0.0f, 0.0f,  1.0f, 1.0f,//center
-		0.0f, 0.5f, 0.0f, 0.0f,  1.0f, 0.0f,//top
-		0.0f, -0.5f, 0.0f, 0.0f,  1.0f, 0.0f,//bottom
-		0.5f, 0.0f, 0.0f, 0.0f,  1.0f, 0.0f,//right
-		-0.5f, 0.0f, 0.0f, 0.0f,  1.0f, 0.0f,//left
-		0.3535f, 0.3535f, 0.0f, 0.0f,  1.0f, 0.0f,//top-right
-		-0.3535f, 0.3535f, 0.0f, 0.0f,  1.0f, 0.0f,//top-left
-		0.3535f, -0.3535f, 0.0f, 0.0f,  1.0f, 0.0f,//bot-right
-		-0.3535f, -0.3535f,  0.0f, 0.0f,  1.0f, 0.0f,//bot-left
+	glPrimitiveRestartIndex(0xffff);
+	glEnable(GL_PRIMITIVE_RESTART);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+
+	//creating type data
+	GLfloat typeData[] = {
+		0.02f, 1.0f, 0.0f, 0.0f
 	};
 
-	// Indices for vertices order
-	GLuint indices[] =
-	{
-		0, 1, 5,
-		0, 1, 6,
-		0, 3, 5,
-		0, 4, 6,
-		0, 2, 7,
-		0, 2, 8,
-		0, 3, 7,
-		0, 4, 8,
-	};
+	// Initilising vertex and index buffers
+	GLfloat vertices[13 * 6 * NUM_PARTICLES_MAIN] = {};
+	GLuint indices[21 * NUM_PARTICLES_MAIN] = {};
 
-	// Generates Shader object using shaders defualt.vert and default.frag
-	Shader shaderProgram("default.vert", "default.frag");
+	Particle2D* particles = new Particle2D[NUM_PARTICLES_MAIN]{ {0.0f,0.0f,0}, {0.5f, 0.5f, 0} };
+
+	fillVertices(particles, vertices, indices, NUM_PARTICLES_MAIN, typeData, 4);
+
+	Shader shaderProgram("particle2d.vert", "default.frag");
 
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
@@ -76,13 +64,15 @@ int main()
 
 	// Generates Vertex Buffer Object and links it to vertices
 	VBO VBO1(vertices, sizeof(vertices));
+
 	// Generates Element Buffer Object and links it to indices
 	EBO EBO1(indices, sizeof(indices));
 
 	// Links VBO to VAO
 	VAO1.LinkAttrib(VBO1, 0, 2, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 4, GL_FLOAT, 6 * sizeof(float), (void*)(2*sizeof(float)));
-	// Unbind all to prevent accidentally modifying them
+
+	// Unbind all
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
@@ -93,7 +83,7 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
@@ -102,7 +92,7 @@ int main()
 		// Bind the VAO so OpenGL knows to use it
 		VAO1.Bind();
 		// Draw primitives, number of indices, datatype of indices, index of indices
-		glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLE_STRIP, 21*NUM_PARTICLES_MAIN, GL_UNSIGNED_INT, 0);
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
@@ -116,6 +106,7 @@ int main()
 	VBO1.Delete();
 	EBO1.Delete();
 	shaderProgram.Delete();
+
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
 	// Terminate GLFW before ending the program
