@@ -1,15 +1,17 @@
 #ifndef PARTICLE_CLASS_H
 #define PARTICLE_CLASS_H
 
+#include<GLFW/glfw3.h>
+
 class Particle2D
 {
 public:
 	unsigned short int type;
-	float* pos;
-	float* vel;
+	GLfloat* pos;
+	GLfloat* vel;
 
-	Particle2D(float x, float y, unsigned short _type);
-	void addVelocity(float* dV);
+	Particle2D(GLfloat x, GLfloat y, unsigned short _type);
+	void addVelocity(GLfloat* dV);
 	void step();
 	~Particle2D();
 };
