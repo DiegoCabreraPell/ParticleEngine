@@ -20,11 +20,6 @@ void Particle2D::addVelocity(GLfloat* dV)
 	vel[1] += dV[1];
 }
 
-void Particle2D::addVelocity(GLfloat* dV)
-{
-	vel[0] += dV[0];
-	vel[1] += dV[1];
-}
 void Particle2D::setVelocity(GLfloat* v)
 {
 	vel[0] = v[0];
