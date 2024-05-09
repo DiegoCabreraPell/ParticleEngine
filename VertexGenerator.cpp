@@ -16,7 +16,7 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, GLuint* indexList,
 		{0.866f, -0.5f},
 		{0.5f,-0.866f},
 		//third quarter
-		{-1.0f,0.0f},
+		{0.0f,-1.0f},
 		{-0.5f,-0.866f},
 		{-0.866f, -0.5f},
 		//fourth quarter
@@ -32,7 +32,7 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, GLuint* indexList,
 
 	unsigned short type;
 	GLfloat scalar, r, g, b;
-	int dataOffset;
+	int dataOffset, indexOffset;
 
 	for (int pIndex = 0; pIndex < num_particles; pIndex++)
 	{
@@ -45,7 +45,7 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, GLuint* indexList,
 		g = dataArr[dataOffset + G];
 		b = dataArr[dataOffset + B];
 
-		//Setting vertices total: 13 per particle
+		//Setting vertices total: 13 per particle @ 6 comps per particle
 
 		//Putting down center vertex
 		vertexList[vIndex++] = particle.pos[0];
@@ -68,14 +68,22 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, GLuint* indexList,
 
 		//Setting index pattern total: 21 per particle
 
-		for (int j = 0; j < 4; j++)
+		indexOffset = pIndex * 13;
+
+		for (int j = 0; j < 3; j++)
 		{
-			indexList[iIndex++] = j * 3 + 1;
-			indexList[iIndex++] = j * 3 + 2;
-			indexList[iIndex++] = 0;
-			indexList[iIndex++] = j * 3 + 3;
-			indexList[iIndex++] = j * 3 + 4;
+			indexList[iIndex++] = indexOffset + j * 3 + 1;
+			indexList[iIndex++] = indexOffset + j * 3 + 2;
+			indexList[iIndex++] = indexOffset + 0;
+			indexList[iIndex++] = indexOffset + j * 3 + 3;
+			indexList[iIndex++] = indexOffset + j * 3 + 4;
 		}
+
+		indexList[iIndex++] = indexOffset + 10;
+		indexList[iIndex++] = indexOffset + 11;
+		indexList[iIndex++] = indexOffset + 0;
+		indexList[iIndex++] = indexOffset + 12;
+		indexList[iIndex++] = indexOffset + 1;
 
 		//Preimitive restart
 		indexList[iIndex++] = 0xffff;
