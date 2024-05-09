@@ -10,8 +10,11 @@ public:
 	GLfloat* pos;
 	GLfloat* vel;
 
+	Particle2D();
 	Particle2D(GLfloat x, GLfloat y, unsigned short _type);
 	void addVelocity(GLfloat* dV);
+	void setVelocity(GLfloat* v);
+	void setPos(GLfloat _x, GLfloat _y);
 	void step();
 	~Particle2D();
 };
