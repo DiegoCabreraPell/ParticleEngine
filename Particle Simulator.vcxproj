@@ -23,7 +23,7 @@
     <ClInclude Include="shaderClass.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
-    <ClInclude Include="VertexGenerator.h" />
+    <ClInclude Include="vertexGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag" />
@@ -39,7 +39,7 @@
     <ClCompile Include="shaderClass.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
-    <ClCompile Include="VertexGenerator.cpp" />
+    <ClCompile Include="vertexGenerator.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

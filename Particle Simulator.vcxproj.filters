@@ -36,7 +36,7 @@
     <ClInclude Include="EBO.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="VertexGenerator.h">
+    <ClInclude Include="vertexGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="particle2DClass.h">
@@ -76,7 +76,7 @@
     <ClCompile Include="particle2DClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VertexGenerator.cpp">
+    <ClCompile Include="vertexGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
