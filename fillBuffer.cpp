@@ -1,10 +1,9 @@
-#include"vertexGenerator.h"
+#include"fillBuffer.h"
 #include<GLFW/glfw3.h>
 
 #define NUM_POINTS_ON_CIRCLE 12
 
-void fillVertices(Particle2D* particles, GLfloat* vertexList, GLuint* indexList,
-	int num_particles, GLfloat* dataArr, int dataComps)
+void fillVertices(Particle2D* particles, GLfloat* vertexList, int num_particles, GLfloat* dataArr, int dataComps)
 {
 	//unit vectors for a circle split by 12 vertices
 	GLfloat unitVecs[12][2] = {
@@ -32,7 +31,7 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, GLuint* indexList,
 
 	unsigned short type;
 	GLfloat scalar, r, g, b;
-	int dataOffset, indexOffset;
+	int dataOffset;
 
 	for (int pIndex = 0; pIndex < num_particles; pIndex++)
 	{
@@ -65,12 +64,20 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, GLuint* indexList,
 			vertexList[vIndex++] = b;
 			vertexList[vIndex++] = 0.0f;
 		}
+	}
+}
 
+void fillIndices(GLuint* indexList, int numParticles) 
+{
+	int indexOffset;
+	int iIndex = 0;
+	for (int i = 0; i < numParticles; i++)
+	{
 		//Setting index pattern total: 21 per particle
 
-		indexOffset = pIndex * 13;
+		indexOffset = i * 13;
 
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < NUM_POINTS_ON_CIRCLE/3 - 1; j++)
 		{
 			indexList[iIndex++] = indexOffset + j * 3 + 1;
 			indexList[iIndex++] = indexOffset + j * 3 + 2;
@@ -85,7 +92,7 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, GLuint* indexList,
 		indexList[iIndex++] = indexOffset + 12;
 		indexList[iIndex++] = indexOffset + 1;
 
-		//Preimitive restart
+		//Primitive restart
 		indexList[iIndex++] = 0xffff;
 	}
 }
