@@ -21,9 +21,10 @@
   <ItemGroup>
     <ClInclude Include="EBO.h" />
     <ClInclude Include="shaderClass.h" />
+    <ClInclude Include="simulateStep.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
-    <ClInclude Include="vertexGenerator.h" />
+    <ClInclude Include="fillBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag" />
@@ -37,9 +38,10 @@
     <ClCompile Include="particle2DClass.cpp" />
     <ClInclude Include="particle2DClass.h" />
     <ClCompile Include="shaderClass.cpp" />
+    <ClCompile Include="simulateStep.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
-    <ClCompile Include="vertexGenerator.cpp" />
+    <ClCompile Include="fillBuffer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

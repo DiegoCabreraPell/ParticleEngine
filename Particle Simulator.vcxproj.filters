@@ -36,10 +36,13 @@
     <ClInclude Include="EBO.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="vertexGenerator.h">
+    <ClInclude Include="fillBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="particle2DClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="simulateStep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -76,7 +79,10 @@
     <ClCompile Include="particle2DClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vertexGenerator.cpp">
+    <ClCompile Include="fillBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simulateStep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
