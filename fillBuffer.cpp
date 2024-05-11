@@ -24,7 +24,7 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, int num_particles,
 		{-0.5f,0.866f}
 	};
 
-	Particle2D& particle = *particles;
+	Particle2D* particle;
 
 	int vIndex = 0;
 	int iIndex = 0;
@@ -35,9 +35,9 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, int num_particles,
 
 	for (int pIndex = 0; pIndex < num_particles; pIndex++)
 	{
-		particle = particles[pIndex];
+		particle = &particles[pIndex];
 
-		type = particle.type;
+		type = particle->type;
 		dataOffset = type * dataComps;
 		scalar = dataArr[dataOffset + SCALAR];
 		r = dataArr[dataOffset + R];
@@ -47,8 +47,8 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, int num_particles,
 		//Setting vertices total: 13 per particle @ 6 comps per particle
 
 		//Putting down center vertex
-		vertexList[vIndex++] = particle.pos[0];
-		vertexList[vIndex++] = particle.pos[1];
+		vertexList[vIndex++] = particle->pos[0];
+		vertexList[vIndex++] = particle->pos[1];
 		vertexList[vIndex++] = r;
 		vertexList[vIndex++] = g;
 		vertexList[vIndex++] = b;
@@ -57,8 +57,8 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, int num_particles,
 		//Putting all other points to the vertex array
 		for (int i = 0; i < NUM_POINTS_ON_CIRCLE; i++)
 		{
-			vertexList[vIndex++] = particle.pos[0] + scalar * unitVecs[i][0];
-			vertexList[vIndex++] = particle.pos[1] + scalar * unitVecs[i][1];
+			vertexList[vIndex++] = particle->pos[0] + scalar * unitVecs[i][0];
+			vertexList[vIndex++] = particle->pos[1] + scalar * unitVecs[i][1];
 			vertexList[vIndex++] = r;
 			vertexList[vIndex++] = g;
 			vertexList[vIndex++] = b;
