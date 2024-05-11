@@ -8,6 +8,7 @@
 #include"EBO.h"
 #include"fillBuffer.h"
 #include"particle2DClass.h"
+#include"simulateStep.h"
 
 #define NUM_PARTICLES_MAIN 2
 
@@ -53,7 +54,6 @@ int main()
 
 	// Initilising vertex and index buffers
 	GLfloat vertices[13 * 6 * NUM_PARTICLES_MAIN] = {};
-	fillVertices(particles, vertices, NUM_PARTICLES_MAIN, typeData, 4);
 
 	GLuint indices[21 * NUM_PARTICLES_MAIN] = {};
 	fillIndices(indices, NUM_PARTICLES_MAIN);
@@ -78,6 +78,10 @@ int main()
 		
 		shaderProgram.Activate();
 		glUniform1f(uniID, 0.0f);
+
+		//Simulation
+		simulateStep(particles, NUM_PARTICLES_MAIN, typeData, 4, {});
+		fillVertices(particles, vertices, NUM_PARTICLES_MAIN, typeData, 4);
 
 		VAO1.Bind();
 		VBO VBO1(vertices, sizeof(vertices));
