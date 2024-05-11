@@ -45,10 +45,11 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
-		0.004f, 1.0f, 0.0f, 0.0f
+		0.08f, 0.0f, 1.0f, 0.0f,
+		0.08f, 0.0f, 0.0f, 1.0f
 	};
 
-	Particle2D* particles = new Particle2D[NUM_PARTICLES_MAIN]{ {0.0f,0.0f,0}, {0.5f, 0.5f, 0} };
+	Particle2D* particles = new Particle2D[NUM_PARTICLES_MAIN]{ {0.0f,0.0f,0}, {0.04f, 0.0f, 1} };
 
 	// Initilising vertex and index buffers
 	GLfloat vertices[13 * 6 * NUM_PARTICLES_MAIN] = {};
@@ -61,22 +62,9 @@ int main()
 
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
-	VAO1.Bind();
-
-	// Generates Vertex Buffer Object and links it to vertices
-	VBO VBO1(vertices, sizeof(vertices));
 
 	// Generates Element Buffer Object and links it to indices
 	EBO EBO1(indices, sizeof(indices));
-
-	// Links VBO to VAO
-	VAO1.LinkAttrib(VBO1, 0, 2, GL_FLOAT, 6 * sizeof(float), (void*)0);
-	VAO1.LinkAttrib(VBO1, 1, 4, GL_FLOAT, 6 * sizeof(float), (void*)(2 * sizeof(float)));
-
-	// Unbind all
-	VAO1.Unbind();
-	VBO1.Unbind();
-	EBO1.Unbind();
 
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
@@ -87,16 +75,32 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
-		// Tell OpenGL which Shader Program we want to use
+		
 		shaderProgram.Activate();
 		glUniform1f(uniID, 0.0f);
-		// Bind the VAO so OpenGL knows to use it
+
 		VAO1.Bind();
-		// Draw primitives, number of indices, datatype of indices, index of indices
+		VBO VBO1(vertices, sizeof(vertices));
+		EBO1.Bind();
+
+		//Linking layouts
+		VAO1.LinkAttrib(VBO1, 0, 2, GL_FLOAT, 6 * sizeof(float), (void*)0);
+		VAO1.LinkAttrib(VBO1, 1, 4, GL_FLOAT, 6 * sizeof(float), (void*)(2 * sizeof(float)));
+
+		VAO1.Unbind();
+		VBO1.Unbind();
+		EBO1.Unbind();
+
+		//Draw call
+		VAO1.Bind();
 		glDrawElements(GL_TRIANGLE_STRIP, 21 * NUM_PARTICLES_MAIN, GL_UNSIGNED_INT, 0);
-		// Swap the back buffer with the front buffer
+		VAO1.Unbind();
+
+		//deleting old VBO
+		VBO1.Delete();
+
 		glfwSwapBuffers(window);
-		// Take care of all GLFW events
+
 		glfwPollEvents();
 	}
 
@@ -104,7 +108,6 @@ int main()
 
 	// Delete all the objects we've created
 	VAO1.Delete();
-	VBO1.Delete();
 	EBO1.Delete();
 	shaderProgram.Delete();
 
