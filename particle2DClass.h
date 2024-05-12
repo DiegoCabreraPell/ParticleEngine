@@ -12,8 +12,8 @@ public:
 
 	Particle2D();
 	Particle2D(GLfloat x, GLfloat y, unsigned short _type);
-	void addVelocity(GLfloat* dV);
-	void setVelocity(GLfloat* v);
+	void addVelocity(GLfloat dx, GLfloat dy);
+	void setVelocity(GLfloat dx, GLfloat dy);
 	void setPos(GLfloat _x, GLfloat _y);
 	void step();
 	~Particle2D();

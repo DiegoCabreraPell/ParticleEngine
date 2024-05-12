@@ -14,16 +14,16 @@ Particle2D::Particle2D(GLfloat x, GLfloat y, unsigned short _type)
 	type = _type;
 }
 
-void Particle2D::addVelocity(GLfloat* dV)
+void Particle2D::addVelocity(GLfloat dx, GLfloat dy)
 {
-	vel[0] += dV[0];
-	vel[1] += dV[1];
+	vel[0] += dx;
+	vel[1] += dy;
 }
 
-void Particle2D::setVelocity(GLfloat* v)
+void Particle2D::setVelocity(GLfloat dx, GLfloat dy)
 {
-	vel[0] = v[0];
-	vel[1] = v[1];
+	vel[0] = dx;
+	vel[1] = dy;
 }
 void Particle2D::setPos(GLfloat _x, GLfloat _y)
 {
