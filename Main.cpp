@@ -10,7 +10,7 @@
 #include"particle2DClass.h"
 #include"simulateStep.h"
 
-#define NUM_PARTICLES_MAIN 2
+#define NUM_PARTICLES_MAIN 8
 
 int main()
 {
@@ -50,7 +50,25 @@ int main()
 		0.08f, 0.0f, 0.0f, 1.0f
 	};
 
-	Particle2D* particles = new Particle2D[NUM_PARTICLES_MAIN]{ {0.0f,0.0f,0}, {0.04f, 0.0f, 1} };
+	GLfloat typeMatrix[] = {
+		0.01f, -0.01f,
+		-0.01f, 0.01f 
+	};
+
+	Particle2D* particles = new Particle2D[NUM_PARTICLES_MAIN]{ 
+		{0.0f,0.0f,0},
+		{0.04f, 0.0f, 1},
+		{-0.04f, 0.0f, 0},
+		{0.04f, 0.04f, 1},
+		{0.4f,0.4f,0},
+		{0.4f, 0.0f, 1},
+		{-0.4f, 0.0f, 0},
+		{0.04f, 0.4f, 1},
+	};
+	particles[0].setVelocity(0.001f, 0.001f);
+	particles[1].setVelocity(-0.001f, 0.001f);
+	particles[2].setVelocity(0.001f, 0.001f);
+	particles[3].setVelocity(-0.001f, 0.001f);
 
 	// Initilising vertex and index buffers
 	GLfloat vertices[13 * 6 * NUM_PARTICLES_MAIN] = {};
@@ -68,42 +86,50 @@ int main()
 
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
+	double crntTime, timeDiff, prevTime = -0.02;
+
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
-	{
-		// Specify the color of the background
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		// Clean the back buffer and assign the new color to it
-		glClear(GL_COLOR_BUFFER_BIT);
-		
-		shaderProgram.Activate();
-		glUniform1f(uniID, 0.0f);
+	{	
+		crntTime = glfwGetTime();
+		timeDiff = crntTime - prevTime;
+		if (timeDiff >= 1 / 60)
+		{
+			// Specify the color of the background
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			// Clean the back buffer and assign the new color to it
+			glClear(GL_COLOR_BUFFER_BIT);
 
-		//Simulation
-		simulateStep(particles, NUM_PARTICLES_MAIN, typeData, 4, {});
-		fillVertices(particles, vertices, NUM_PARTICLES_MAIN, typeData, 4);
+			shaderProgram.Activate();
+			glUniform1f(uniID, 0.0f);
 
-		VAO1.Bind();
-		VBO VBO1(vertices, sizeof(vertices));
-		EBO1.Bind();
+			//Simulation
+			simulateStep(particles, NUM_PARTICLES_MAIN, typeData, 4, typeMatrix, 2);
+			fillVertices(particles, vertices, NUM_PARTICLES_MAIN, typeData, 4);
 
-		//Linking layouts
-		VAO1.LinkAttrib(VBO1, 0, 2, GL_FLOAT, 6 * sizeof(float), (void*)0);
-		VAO1.LinkAttrib(VBO1, 1, 4, GL_FLOAT, 6 * sizeof(float), (void*)(2 * sizeof(float)));
+			VAO1.Bind();
+			VBO VBO1(vertices, sizeof(vertices));
+			EBO1.Bind();
 
-		VAO1.Unbind();
-		VBO1.Unbind();
-		EBO1.Unbind();
+			//Linking layouts
+			VAO1.LinkAttrib(VBO1, 0, 2, GL_FLOAT, 6 * sizeof(float), (void*)0);
+			VAO1.LinkAttrib(VBO1, 1, 4, GL_FLOAT, 6 * sizeof(float), (void*)(2 * sizeof(float)));
 
-		//Draw call
-		VAO1.Bind();
-		glDrawElements(GL_TRIANGLE_STRIP, 21 * NUM_PARTICLES_MAIN, GL_UNSIGNED_INT, 0);
-		VAO1.Unbind();
+			VAO1.Unbind();
+			VBO1.Unbind();
+			EBO1.Unbind();
 
-		//deleting old VBO
-		VBO1.Delete();
+			//Draw call
+			VAO1.Bind();
+			glDrawElements(GL_TRIANGLE_STRIP, 21 * NUM_PARTICLES_MAIN, GL_UNSIGNED_INT, 0);
+			VAO1.Unbind();
 
-		glfwSwapBuffers(window);
+			//deleting old VBO
+			VBO1.Delete();
+
+			glfwSwapBuffers(window);
+		}
+
 
 		glfwPollEvents();
 	}
