@@ -29,9 +29,30 @@ void simulateVelocities(std::vector<Particle2D*> sector, std::vector<std::vector
 		{
 			dx = pOther->pos[0] - x;
 			dy = pOther->pos[1] - y;
-			distance = sqrtf(pow(dx, 2) + pow(dy, 2));
+			distance = sqrtf(pow(dx, 2) + pow(dy, 2))-0.016f;
 
-			if (distance<=0.2)
+			if (distance == 0)
+			{
+				distance = -0.016f;
+				dx = 0.01f;
+				dy = 0.01f;
+			}
+			if (distance < 0)
+			{
+				scaledUnitX = dx / distance * 0.1;
+				scaledUnitY = dy / distance * 0.1;
+
+				particle->addVelocity(
+					scaledUnitX,
+					scaledUnitY
+				);
+
+				pOther->addVelocity(
+					-scaledUnitX,
+					-scaledUnitY
+				);
+			}
+			else if (distance<=0.2f)
 			{
 				magnitude = distanceScalar(distance);
 
@@ -98,6 +119,11 @@ void simulateStep(Particle2D** particles, int numParticles, GLfloat* typeData, i
 		xIndex = (int)(pixelX / (800 / 5));
 		yIndex = (int)(pixelY / (800 / 5));
 
+		if (yIndex == 5)
+			yIndex = 4;
+		if (xIndex == 5)
+			xIndex = 4;
+
 		sectors[5 * yIndex + xIndex].push_back(particle);
 	}
 
@@ -160,8 +186,8 @@ void simulateStep(Particle2D** particles, int numParticles, GLfloat* typeData, i
 	{
 		dPos = sqrtf(pow(particles[i]->vel[0], 2) + pow(particles[i]->vel[1], 2));
 		//speed limit
-		if (dPos > 0.01)
-			particles[i]->setVelocity(particles[i]->vel[0] / dPos * 0.01, particles[i]->vel[1] / dPos * 0.01);
+		if (dPos > 0.005)
+			particles[i]->setVelocity(particles[i]->vel[0] / dPos * 0.005, particles[i]->vel[1] / dPos * 0.005);
 		
 		particles[i]->step();
 		if (particles[i]->pos[0] >= 1.0)
