@@ -3,7 +3,7 @@
 
 #define NUM_POINTS_ON_CIRCLE 12
 
-void fillVertices(Particle2D* particles, GLfloat* vertexList, int num_particles, GLfloat* dataArr, int dataComps)
+void fillVertices(Particle2D** particles, GLfloat* vertexList, int num_particles, GLfloat* dataArr, int dataComps)
 {
 	//unit vectors for a circle split by 12 vertices
 	GLfloat unitVecs[12][2] = {
@@ -35,7 +35,7 @@ void fillVertices(Particle2D* particles, GLfloat* vertexList, int num_particles,
 
 	for (int pIndex = 0; pIndex < num_particles; pIndex++)
 	{
-		particle = &particles[pIndex];
+		particle = particles[pIndex];
 
 		type = particle->type;
 		dataOffset = type * dataComps;

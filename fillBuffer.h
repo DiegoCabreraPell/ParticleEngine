@@ -11,7 +11,7 @@ enum VdataEntry {
 	B,
 };
 
-void fillVertices(Particle2D* particles, GLfloat* vertexList, int num_particles, GLfloat* dataArr, int dataComps);
+void fillVertices(Particle2D** particles, GLfloat* vertexList, int num_particles, GLfloat* dataArr, int dataComps);
 
 void fillIndices(GLuint* indexList, int numParticles);
 

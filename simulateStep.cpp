@@ -74,7 +74,7 @@ void simulateVelocities(std::vector<Particle2D*> sector, std::vector<std::vector
 	}
 }
 
-void simulateStep(Particle2D* particles, int numParticles, GLfloat* typeData, int dataComps, GLfloat* typeMatrix, int numTypes)
+void simulateStep(Particle2D** particles, int numParticles, GLfloat* typeData, int dataComps, GLfloat* typeMatrix, int numTypes)
 {
 	//Subdivide simulation area into sectors
 	//Reduces checks necccesary
@@ -90,13 +90,13 @@ void simulateStep(Particle2D* particles, int numParticles, GLfloat* typeData, in
 	//Pushing particles to their correct sector
 	for (int i = 0; i < numParticles; i++)
 	{
-		particle = particles+i;
+		particle = *(particles+i);
 
 		pixelX = 400 * particle->pos[0] + 400;
 		pixelY = 400 * particle->pos[1] + 400;
 
-		xIndex = floor(pixelX / (800 / 5));
-		yIndex = floor(pixelY / (800 / 5));
+		xIndex = (int)(pixelX / (800 / 5));
+		yIndex = (int)(pixelY / (800 / 5));
 
 		sectors[5 * yIndex + xIndex].push_back(particle);
 	}
@@ -158,31 +158,31 @@ void simulateStep(Particle2D* particles, int numParticles, GLfloat* typeData, in
 
 	for (int i = 0; i < numParticles; i++)
 	{
-		dPos = sqrtf(pow(particles[i].vel[0], 2) + pow(particles[i].vel[1], 2));
+		dPos = sqrtf(pow(particles[i]->vel[0], 2) + pow(particles[i]->vel[1], 2));
 		//speed limit
-		if (dPos > 0.02)
-			particles[i].setVelocity(particles[i].vel[0] / dPos * 0.02, particles[i].vel[1] / dPos * 0.02);
+		if (dPos > 0.01)
+			particles[i]->setVelocity(particles[i]->vel[0] / dPos * 0.01, particles[i]->vel[1] / dPos * 0.01);
 		
-		particles[i].step();
-		if (particles[i].pos[0] >= 1.0)
+		particles[i]->step();
+		if (particles[i]->pos[0] >= 1.0)
 		{
-			particles[i].setPos(0.9999999, particles[i].pos[1]);
-			particles[i].setVelocity(0.0f, particles[i].vel[1]);
+			particles[i]->setPos(0.999f, particles[i]->pos[1]);
+			particles[i]->setVelocity(0.0f, particles[i]->vel[1]);
 		}
-		if (particles[i].pos[0] <= -1.0)
+		if (particles[i]->pos[0] <= -1.0)
 		{
-			particles[i].setPos(-0.9999999, particles[i].pos[1]);
-			particles[i].setVelocity(0.0f,particles[i].vel[1]);
+			particles[i]->setPos(-0.999f, particles[i]->pos[1]);
+			particles[i]->setVelocity(0.0f,particles[i]->vel[1]);
 		}
-		if (particles[i].pos[1] >= 1.0)
+		if (particles[i]->pos[1] >= 1.0)
 		{
-			particles[i].setPos(particles[i].pos[0], 0.9999999);
-			particles[i].setVelocity(particles[i].vel[0], 0.0f);
+			particles[i]->setPos(particles[i]->pos[0], 0.999f);
+			particles[i]->setVelocity(particles[i]->vel[0], 0.0f);
 		}
-		if (particles[i].pos[1] <= -1.0)
+		if (particles[i]->pos[1] <= -1.0)
 		{
-			particles[i].setPos(particles[i].pos[0], -0.9999999);
-			particles[i].setVelocity(particles[i].vel[0], 0.0f);
+			particles[i]->setPos(particles[i]->pos[0], -0.999f);
+			particles[i]->setVelocity(particles[i]->vel[0], 0.0f);
 		}
 
 	}
