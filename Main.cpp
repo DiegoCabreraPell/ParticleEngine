@@ -12,8 +12,8 @@
 #include"particle2DClass.h"
 #include"simulateStep.h"
 
-#define NUM_PARTICLES_MAIN 10
-#define NUM_TYPES 2
+#define NUM_PARTICLES_MAIN 400
+#define NUM_TYPES 4
 
 int main()
 {
@@ -53,13 +53,17 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
+		0.008f, 1.0f, 0.0f, 0.0f,
 		0.008f, 0.0f, 1.0f, 0.0f,
-		0.008f, 0.0f, 0.0f, 1.0f
+		0.008f, 0.0f, 0.0f, 1.0f,
+		0.008f, 1.0f, 1.0f, 1.0f
 	};
 
 	GLfloat typeMatrix[] = {
-		0.01f, -0.01f,
-		-0.01f, 0.01f 
+		-0.001f, 0.001f, 0.001f, 0.001f,
+		0.001f, -0.001f, 0.001f, -0.001f,
+		0.001f, 0.001f, -0.001f, -0.001f,
+		0.001f, -0.001f, -0.001f, -0.001f
 	};
 
 	Particle2D **particles = new Particle2D * [num_particles] {};
