@@ -54,7 +54,7 @@ void simulateVelocities(std::vector<Particle2D*> sector, std::vector<std::vector
 			}
 			else if (distance<=0.2f)
 			{
-				magnitude = distanceScalar(distance);
+				magnitude = distanceScalar(distance+0.016);
 
 				scaledUnitX = dx / distance * magnitude;
 				scaledUnitY = dy / distance * magnitude;
