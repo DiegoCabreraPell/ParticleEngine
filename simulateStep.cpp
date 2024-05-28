@@ -14,7 +14,7 @@ void simulateVelocities(std::vector<Particle2D*> sector, std::vector<std::vector
 	// (n^2+n)/2 checks within the sector
 
 	Particle2D* particle;
-	GLfloat distance, x, y, magnitude, dx, dy, scaledUnitX, scaledUnitY;
+	GLfloat distance, x, y, magnitude, dx, dy, scaledUnitX, scaledUnitY, forceScalar, dfx, dfy;
 
 	while (!sector.empty())
 	{
@@ -29,18 +29,23 @@ void simulateVelocities(std::vector<Particle2D*> sector, std::vector<std::vector
 		{
 			dx = pOther->pos[0] - x;
 			dy = pOther->pos[1] - y;
-			distance = sqrtf(pow(dx, 2) + pow(dy, 2))-0.016f;
+			distance = sqrtf(pow(dx, 2) + pow(dy, 2));
 
-			if (distance == 0)
+			if (distance == 0.0f)
 			{
-				distance = -0.016f;
+				distance = -0.002f;
 				dx = 0.01f;
 				dy = 0.01f;
 			}
-			if (distance < 0)
+			if (distance < 0.0f-0.016f)
 			{
-				scaledUnitX = dx / distance * 0.1;
-				scaledUnitY = dy / distance * 0.1;
+				dfx = pOther->vel[0] - particle->vel[0];
+				dfy = pOther->vel[1] - particle->vel[1];
+
+				forceScalar = sqrtf(pow(dfx, 2) + pow(dfy, 2));
+
+				scaledUnitX = dx / distance * forceScalar / 0.5f;
+				scaledUnitY = dy / distance * forceScalar / 0.5f;
 
 				particle->addVelocity(
 					scaledUnitX,
@@ -54,7 +59,7 @@ void simulateVelocities(std::vector<Particle2D*> sector, std::vector<std::vector
 			}
 			else if (distance<=0.2f)
 			{
-				magnitude = distanceScalar(distance+0.016);
+				magnitude = distanceScalar(distance);
 
 				scaledUnitX = dx / distance * magnitude;
 				scaledUnitY = dy / distance * magnitude;
