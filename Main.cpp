@@ -60,10 +60,10 @@ int main()
 	};
 
 	GLfloat typeMatrix[] = {
-		-0.001f, 0.001f, 0.001f, 0.001f,
-		0.001f, -0.001f, 0.001f, -0.001f,
-		0.001f, 0.001f, -0.001f, -0.001f,
-		0.001f, -0.001f, -0.001f, -0.001f
+		0.0001f, -0.002f, -0.001f, 0.002f,
+		-0.002f, -0.005f, 0.003f, 0.001f,
+		-0.001f, 0.003f, 0.005f, 0.001f,
+		0.002f, 0.001f, 0.001f, -0.005f
 	};
 
 	Particle2D **particles = new Particle2D * [num_particles] {};
@@ -114,7 +114,7 @@ int main()
 			glUniform1f(uniID, 0.0f);
 
 			//Simulation
-			simulateStep(particles, num_particles, typeData, 4, typeMatrix, 2);
+			simulateStep(particles, num_particles, typeData, 4, typeMatrix, NUM_TYPES);
 			fillVertices(particles, vertices, num_particles, typeData, 4);
 
 			VAO1.Bind();
