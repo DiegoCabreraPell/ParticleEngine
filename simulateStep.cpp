@@ -14,7 +14,7 @@ void simulateVelocities(std::vector<Particle2D*> sector, std::vector<std::vector
 	// (n^2+n)/2 checks within the sector
 
 	Particle2D* particle;
-	GLfloat distance, x, y, magnitude, dx, dy, scaledUnitX, scaledUnitY;
+	GLfloat distance, x, y, magnitude, dx, dy, scaledUnitX, scaledUnitY, forceScalar, dfx, dfy;
 
 	while (!sector.empty())
 	{
@@ -31,7 +31,33 @@ void simulateVelocities(std::vector<Particle2D*> sector, std::vector<std::vector
 			dy = pOther->pos[1] - y;
 			distance = sqrtf(pow(dx, 2) + pow(dy, 2));
 
-			if (distance<=0.2)
+			if (distance == 0.0f)
+			{
+				distance = -0.002f;
+				dx = 0.01f;
+				dy = 0.01f;
+			}
+			if (distance < 0.0f-0.016f)
+			{
+				dfx = pOther->vel[0] - particle->vel[0];
+				dfy = pOther->vel[1] - particle->vel[1];
+
+				forceScalar = sqrtf(pow(dfx, 2) + pow(dfy, 2));
+
+				scaledUnitX = dx / distance * forceScalar / 0.5f;
+				scaledUnitY = dy / distance * forceScalar / 0.5f;
+
+				particle->addVelocity(
+					scaledUnitX,
+					scaledUnitY
+				);
+
+				pOther->addVelocity(
+					-scaledUnitX,
+					-scaledUnitY
+				);
+			}
+			else if (distance<=0.2f)
 			{
 				magnitude = distanceScalar(distance);
 
@@ -98,6 +124,11 @@ void simulateStep(Particle2D** particles, int numParticles, GLfloat* typeData, i
 		xIndex = (int)(pixelX / (800 / 5));
 		yIndex = (int)(pixelY / (800 / 5));
 
+		if (yIndex == 5)
+			yIndex = 4;
+		if (xIndex == 5)
+			xIndex = 4;
+
 		sectors[5 * yIndex + xIndex].push_back(particle);
 	}
 
@@ -160,8 +191,8 @@ void simulateStep(Particle2D** particles, int numParticles, GLfloat* typeData, i
 	{
 		dPos = sqrtf(pow(particles[i]->vel[0], 2) + pow(particles[i]->vel[1], 2));
 		//speed limit
-		if (dPos > 0.01)
-			particles[i]->setVelocity(particles[i]->vel[0] / dPos * 0.01, particles[i]->vel[1] / dPos * 0.01);
+		if (dPos > 0.005)
+			particles[i]->setVelocity(particles[i]->vel[0] / dPos * 0.005, particles[i]->vel[1] / dPos * 0.005);
 		
 		particles[i]->step();
 		if (particles[i]->pos[0] >= 1.0)
