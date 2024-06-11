@@ -9,12 +9,11 @@ class Grid
 	int capacity, numParticles;
 	GridSection sections[];
 
-	Grid();
+	Grid(int numX, int numY, int size, float maxReach);
 	void insertParticle(Particle &p);
-	void removeParticle(int pID);
-	Particle getParticle(int pID);
-	void deleteParticle(int pID);
-	~Grid();
+	Particle* popParticle(int pID);
+	Particle* getParticle(int pID);
+	int deleteParticle(int pID);
 };
 
 #endif 
