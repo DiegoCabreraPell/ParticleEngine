@@ -109,5 +109,8 @@
     <ClCompile Include="ParticleSimulation.cpp">
       <Filter>Source Files\Simulation</Filter>
     </ClCompile>
+    <ClCompile Include="GridSection.cpp">
+      <Filter>Source Files\Simulation</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -12,15 +12,13 @@ class GridSection
 	vector<GridSection> adjacentGrids;
 	vector<GridSection> nearGrids;
 
-	GridSection(int numX, int numY, int size, float maxReach);
+	GridSection();
 
 	void addParticle(Particle p);
-	void removeParticle(Particle p);
+	int removeParticle(int pID);
 
 	void addAdjacent(GridSection gs);
 	void addNear(GridSection gs);
-
-	~GridSection();
 };
 
 #endif
