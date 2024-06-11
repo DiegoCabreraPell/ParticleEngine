@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Graphics">
       <UniqueIdentifier>{5f6da452-544a-4612-86ad-c94bc9be456b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Simulation">
+      <UniqueIdentifier>{3c2678c8-a9db-4e03-b6d4-6adfa95def4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Simulation">
+      <UniqueIdentifier>{6b099585-e4ef-4ab8-922e-2fc7c249dc88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VBO.h">
@@ -45,11 +51,17 @@
     <ClInclude Include="simulateStep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSimulation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSimulation.h">
+      <Filter>Header Files\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="GridSection.h">
+      <Filter>Header Files\Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files\Simulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -92,10 +104,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Simulation</Filter>
     </ClCompile>
     <ClCompile Include="ParticleSimulation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Simulation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,8 @@
-#ifndef DPSIM_CLASS_H
-#define DPSIM_CLASS_H
+#ifndef GPSIM_CLASS_H
+#define GPSIM_CLASS_H
 #include"Particle.h"
+
+void (*DEFAULTCOLLISIONRESOLVER) (Particle, Particle);
 
 class ParticleSimulation
 {
