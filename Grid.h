@@ -2,7 +2,7 @@
 #define GRID_H
 
 #include "GridSection.h"
-#include "Particle.h
+#include "Particle.h"
 
 class Grid
 {
