@@ -112,5 +112,8 @@
     <ClCompile Include="GridSection.cpp">
       <Filter>Source Files\Simulation</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files\Simulation</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
