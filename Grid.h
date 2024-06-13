@@ -3,17 +3,17 @@
 
 #include "GridSection.h"
 #include "Particle.h"
+#include <array>
 
 class Grid
 {
-	int capacity, numParticles;
-	GridSection sections[];
+	int capacity, numParticles, gridSize, sizeX, sizeY;
+	GridSection **sections;
 
-	Grid(int numX, int numY, int size, float maxReach);
+public:
+	Grid(int numX, int numY, int size, float maxReach, int cap);
 	void insertParticle(Particle &p);
-	Particle* popParticle(int pID);
-	Particle* getParticle(int pID);
-	int deleteParticle(int pID);
+	int deleteParticle(int pID, float pX, float pY);
 };
 
 #endif 
