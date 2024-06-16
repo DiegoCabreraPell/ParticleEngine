@@ -12,6 +12,7 @@ class GridSection
 	vector<GridSection> adjacentGrids;
 	vector<GridSection> nearGrids;
 
+public:
 	GridSection();
 
 	void addParticle(Particle p);
