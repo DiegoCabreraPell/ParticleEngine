@@ -12,7 +12,8 @@ Grid::Grid(int numX, int numY, int size, float maxReach, int cap)
 	sizeX = numX;
 	sizeY = numY;
 
-	float gridsRadius = (float) ceil(maxReach / (float)size);
+	float gridsRadius = maxReach / (float)size;
+	int iGridRad = (int) ceil(gridsRadius);
 
 	int numGrid = numX * numY;
 	int xPos, yPos;
@@ -35,13 +36,13 @@ Grid::Grid(int numX, int numY, int size, float maxReach, int cap)
 
 		g1 = *(sections[i]);
 
-		for (int x = xPos-gridsRadius; x < xPos+gridsRadius; x++)
+		for (int x = xPos- iGridRad; x < xPos+ iGridRad; x++)
 		{
-			for (int y = yPos - gridsRadius; y < yPos + gridsRadius; y++)
+			for (int y = yPos - iGridRad; y < yPos + iGridRad; y++)
 			{
 				if (x >= 0 && y >= 0 && x != xPos && y != yPos)
 				{
-					distance = sqrtf(powf(xPos - x, 2) + powf(yPos - y, 2));
+					distance = sqrtf(powf((float)(xPos - x), 2) + powf((float)(yPos - y), 2));
 					if (distance <= gridsRadius)
 					{
 						g2 = *(sections[x + y * numY]);
@@ -66,5 +67,5 @@ void Grid::insertParticle(Particle& p)
 int Grid::deleteParticle(int pID, float pX, float pY)
 {
 	GridSection gs = *sections[(int)pX + (int)pY * sizeY];
-	gs.removeParticle(pID);
+	return gs.removeParticle(pID);
 }
