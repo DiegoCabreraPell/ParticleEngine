@@ -20,6 +20,22 @@ protected:
 	//Particle information
 	int numParticles, maxParticles;
 	//particles
+
+public:
+	ParticleSimulation(int pHeight, int pWidth, int mParticles);
+	void setSpeedLimit(float limit);
+	int getFreeID();
+	void setDefaultTimeStep();
+	void step(float timeStep);
+	void step();
+	void setCollisionResolver(void (*res)(Particle, Particle));
+
+	Particle getParticle(int pID);
+	void removeParticle(int pID);
+	void addParticle(float x, float y, int type, float dx, float dy);
+	void addParticle(float x, float y, int type);
+	void addParticle(int type);
+	bool isFull();
 };
 
 #endif
