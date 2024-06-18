@@ -1,6 +1,7 @@
 #ifndef GPSIM_CLASS_H
 #define GPSIM_CLASS_H
 #include"Particle.h"
+#include"Grid.h"
 
 void (*DEFAULTCOLLISIONRESOLVER) (Particle, Particle);
 
@@ -13,29 +14,32 @@ protected:
 
 	//simulation meta information
 	int numTypes, gridSize;
-	float speedLimit, defaultTimeStep;
+	float speedLimit;
 	float* typeData, interactionMatrix;
 	void (*collisionResolver) (Particle, Particle);
 
 	//Particle information
 	int numParticles, maxParticles;
-	//particles
+	Particle** particles;
 
+	vector<int> freeIDs;
+
+
+	Grid* grid;
+	 
 public:
-	ParticleSimulation(int pHeight, int pWidth, int mParticles);
+	ParticleSimulation(int pHeight, int pWidth, int mParticles, int numTypes, float maxCmptDist, float gSize);
 	void setSpeedLimit(float limit);
 	int getFreeID();
-	void setDefaultTimeStep();
 	void step(float timeStep);
-	void step();
 	void setCollisionResolver(void (*res)(Particle, Particle));
 
-	Particle getParticle(int pID);
-	void removeParticle(int pID);
-	void addParticle(float x, float y, int type, float dx, float dy);
-	void addParticle(float x, float y, int type);
-	void addParticle(int type);
-	bool isFull();
+	Particle* getParticle(int pID);
+	int removeParticle(int pID);
+	int addParticle(float x, float y, int type, float dx, float dy);
+	int addParticle(float x, float y, int type);
+	int addParticle(int type);
+	bool isFull() const;
 };
 
 #endif
