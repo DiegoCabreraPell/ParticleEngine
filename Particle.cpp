@@ -42,7 +42,7 @@ void Particle::addDy(float vY) {
 	dy += vY;
 }
 
-int Particle::ID() {
+int Particle::ID() const {
 	return id;
 }
 
