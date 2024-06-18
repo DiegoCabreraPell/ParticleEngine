@@ -21,7 +21,7 @@ public:
 	void addDx(float vX);
 	void addDy(float vY);
 
-	int ID();
+	int ID() const;
 
 	void step(float s);
 };
