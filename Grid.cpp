@@ -4,7 +4,7 @@
 using namespace std;
 #include"math.h"
 
-Grid::Grid(int numX, int numY, int size, float maxReach, int cap)
+Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 {
 	numParticles = 0;
 	capacity = cap;
@@ -12,7 +12,7 @@ Grid::Grid(int numX, int numY, int size, float maxReach, int cap)
 	sizeX = numX;
 	sizeY = numY;
 
-	float gridsRadius = maxReach / (float)size;
+	float gridsRadius = maxReach / size;
 	int iGridRad = (int) ceil(gridsRadius);
 
 	int numGrid = numX * numY;

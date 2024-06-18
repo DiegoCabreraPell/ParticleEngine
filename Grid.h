@@ -11,7 +11,7 @@ class Grid
 	GridSection **sections;
 
 public:
-	Grid(int numX, int numY, int size, float maxReach, int cap);
+	Grid(int numX, int numY, float size, float maxReach, int cap);
 	void insertParticle(Particle &p);
 	int deleteParticle(int pID, float pX, float pY);
 };
