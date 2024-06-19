@@ -15,6 +15,7 @@ public:
 	void insertParticle(Particle &p);
 	int deleteParticle(int pID, float pX, float pY);
 	void step(float time);
+	void updateVelocities(float time);
 };
 
 #endif 
