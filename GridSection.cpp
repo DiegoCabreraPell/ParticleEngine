@@ -35,3 +35,9 @@ void GridSection::addNear(GridSection gs)
 {
 	nearGrids.push_back(gs);
 }
+
+void GridSection::step(float time)
+{
+	for (auto i = particles.begin(); i != particles.end(); i++)
+		i->step(time);
+}

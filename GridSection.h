@@ -20,6 +20,7 @@ public:
 
 	void addAdjacent(GridSection gs);
 	void addNear(GridSection gs);
+	void step(float time);
 };
 
 #endif
