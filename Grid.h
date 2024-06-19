@@ -14,6 +14,7 @@ public:
 	Grid(int numX, int numY, float size, float maxReach, int cap);
 	void insertParticle(Particle &p);
 	int deleteParticle(int pID, float pX, float pY);
+	void step(float time);
 };
 
 #endif 

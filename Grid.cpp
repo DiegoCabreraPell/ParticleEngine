@@ -69,3 +69,11 @@ int Grid::deleteParticle(int pID, float pX, float pY)
 	GridSection gs = *sections[(int)pX + (int)pY * sizeY];
 	return gs.removeParticle(pID);
 }
+
+void Grid::step(float time)
+{
+	for (int i = 0; i < sizeX * sizeY; i++)
+	{
+		sections[i]->step(time);
+	}
+}
