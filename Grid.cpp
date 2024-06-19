@@ -77,3 +77,11 @@ void Grid::step(float time)
 		sections[i]->step(time);
 	}
 }
+
+void Grid::updateVelocities(float time)
+{
+	for (int i = 0; i < sizeX * sizeY; i++)
+	{
+		sections[i]->updateVelocities(time);
+	}
+}
