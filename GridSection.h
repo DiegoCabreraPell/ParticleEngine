@@ -3,6 +3,7 @@
 
 #include"Particle.h"
 #include<vector>
+#include "SimTypes.h"
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
 	void addAdjacent(GridSection gs);
 	void addNear(GridSection gs);
 	void step(float time);
-	void updateVelocities(float time, float** typeMatrix, float (**forceFuncs)(float));
+	void updateVelocities(float time, float** typeMatrix, forceFunc* foreFuncs);
 };
 
 #endif
