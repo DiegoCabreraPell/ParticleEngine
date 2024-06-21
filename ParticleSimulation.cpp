@@ -1,7 +1,12 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
 
-static void DEFAULTCOLLISIONRESOLVER(Particle p1, Particle p2)
+void DEFAULTCOLLISIONRESOLVER(Particle p1, Particle p2)
+{
+
+}
+
+float DEFAULTFORCEFUNCTION(float dist) 
 {
 
 }
@@ -52,14 +57,15 @@ int ParticleSimulation::getFreeID()
 void ParticleSimulation::step(float timeStep) 
 {
 	//update velocity
+	grid->updateVelocities(timeStep, typeMat, typeForceFuncs);
 	
 	//update position
+	grid->step(timeStep);
 	
 	//detect collisions
 	
-	//resolve collisions
 	
-	//update velocity
+	//resolve collisions
 
 }
 

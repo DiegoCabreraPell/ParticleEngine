@@ -3,7 +3,9 @@
 #include"Particle.h"
 #include"Grid.h"
 
-void (*DEFAULTCOLLISIONRESOLVER) (Particle, Particle);
+void DEFAULTCOLLISIONRESOLVER(Particle, Particle);
+
+float DEFAULTFORCEFUNCTION(float);
 
 class ParticleSimulation
 {
@@ -24,6 +26,8 @@ protected:
 
 	vector<int> freeIDs;
 
+	float** typeMat;
+	float (**typeForceFuncs)(float);
 
 	Grid* grid;
 	 
