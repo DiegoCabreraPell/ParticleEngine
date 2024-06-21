@@ -21,6 +21,7 @@ public:
 	void addAdjacent(GridSection gs);
 	void addNear(GridSection gs);
 	void step(float time);
+	void updateVelocities(float time, float** typeMatrix, float (**forceFuncs)(float));
 };
 
 #endif
