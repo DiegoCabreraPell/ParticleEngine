@@ -41,3 +41,64 @@ void GridSection::step(float time)
 	for (auto i = particles.begin(); i != particles.end(); i++)
 		i->step(time);
 }
+
+void GridSection::updateVelocities(float time, float** typeMatrix, float (**forceFuncs)(float))
+{
+	float distance, dy, dx, force, nx, ny, scalar;
+
+	for (auto i = particles.begin(); i != particles.end(); i++)
+	{
+		//Calculate particle with other particles in its sector
+		for (auto j = i; j != particles.end(); j++)
+		{
+			dy = i->y - j->y;
+			dx = i->x - j->x;
+
+			if (dx == 0.0f)
+				dx = 0.00001;
+			if (dy == 0.0f)
+				dy = 0.00001;
+
+			distance = sqrtf(powf(dy, 2) + powf(dx, 2));
+
+			nx = dx / distance;
+			ny = dy / distance;
+
+			force = forceFuncs[j->type](distance) * typeMatrix[i->type][j->type] * time;
+
+			i->addDx(nx * force);
+			i->addDy(ny * force);
+
+			force = forceFuncs[i->type](distance) * typeMatrix[j->type][i->type] * time;
+
+			j->addDx(-nx * force);
+			j->addDy(-ny * force);
+		}
+
+		//calculate particle with particles from near sectors
+		for (auto sector = nearGrids.begin(); sector != nearGrids.end(); sector++)
+		{
+			for (auto p = sector->particles.begin(); p != sector->particles.end(); p++)
+			{
+				dy = i->y - p->y;
+				dx = i->x - p->x;
+
+				if (dx == 0.0f)
+					dx = 0.00001;
+				if (dy == 0.0f)
+					dy = 0.00001;
+
+				distance = sqrtf(powf(dy, 2) + powf(dx, 2));
+
+				nx = dx / distance;
+				ny = dy / distance;
+
+				force = forceFuncs[j->type](distance) * typeMatrix[i->type][j->type] * time;
+
+				i->addDx(nx * force);
+				i->addDy(ny * force);
+			}
+		}
+
+	}
+}
