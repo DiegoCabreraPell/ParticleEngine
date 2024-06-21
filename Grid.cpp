@@ -78,10 +78,10 @@ void Grid::step(float time)
 	}
 }
 
-void Grid::updateVelocities(float time)
+void Grid::updateVelocities(float time, float** typeMatrix, float (**forceFuncs)(float))
 {
 	for (int i = 0; i < sizeX * sizeY; i++)
 	{
-		sections[i]->updateVelocities(time);
+		sections[i]->updateVelocities(time, typeMatrix, forceFuncs);
 	}
 }
