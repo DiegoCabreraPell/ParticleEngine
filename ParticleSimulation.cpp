@@ -28,6 +28,12 @@ ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, 
 	numParticles = 0;
 	speedLimit = 100.0f / 60.0f;
 
+	for (int i = 0; i < nTypes; i++)
+		typeMat[i] = new float[nTypes] {0.0f};
+
+	typeForceFuncs = new forceFunc[nTypes]{DEFAULTFORCEFUNCTION};
+
+
 	//Initialising free particle id vector and particle address array
 	particles = new Particle * [maxParticles]();
 	freeIDs = vector<int>(maxParticles);

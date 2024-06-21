@@ -1,6 +1,5 @@
 #include "GridSection.h"
 #include "vector"
-
 using namespace std;
 
 GridSection::GridSection() 
@@ -42,9 +41,9 @@ void GridSection::step(float time)
 		i->step(time);
 }
 
-void GridSection::updateVelocities(float time, float** typeMatrix, float (**forceFuncs)(float))
+void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*forceFuncs)
 {
-	float distance, dy, dx, force, nx, ny, scalar;
+	float distance, dy, dx, force, nx, ny;
 
 	for (auto i = particles.begin(); i != particles.end(); i++)
 	{
@@ -93,7 +92,7 @@ void GridSection::updateVelocities(float time, float** typeMatrix, float (**forc
 				nx = dx / distance;
 				ny = dy / distance;
 
-				force = forceFuncs[j->type](distance) * typeMatrix[i->type][j->type] * time;
+				force = forceFuncs[p->type](distance) * typeMatrix[i->type][p->type] * time;
 
 				i->addDx(nx * force);
 				i->addDy(ny * force);

@@ -2,6 +2,8 @@
 #define GPSIM_CLASS_H
 #include"Particle.h"
 #include"Grid.h"
+#include"SimTypes.h"
+
 
 void DEFAULTCOLLISIONRESOLVER(Particle, Particle);
 
@@ -27,7 +29,7 @@ protected:
 	vector<int> freeIDs;
 
 	float** typeMat;
-	float (**typeForceFuncs)(float);
+	forceFunc* typeForceFuncs;
 
 	Grid* grid;
 	 
