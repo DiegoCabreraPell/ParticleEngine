@@ -25,6 +25,7 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleSimulation.h" />
     <ClInclude Include="shaderClass.h" />
+    <ClInclude Include="SimTypes.h" />
     <ClInclude Include="simulateStep.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
