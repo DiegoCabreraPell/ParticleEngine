@@ -19,7 +19,7 @@ protected:
 	//simulation meta information
 	int numTypes, gridSize;
 	float speedLimit;
-	float* typeData, interactionMatrix;
+	float* typeSizes, *typeWeights;
 	void (*collisionResolver) (Particle, Particle);
 
 	//Particle information
@@ -45,6 +45,11 @@ public:
 	int addParticle(float x, float y, int type, float dx, float dy);
 	int addParticle(float x, float y, int type);
 	int addParticle(int type);
+	int setPWeight(int type, float weight);
+	int setPSize(int type, float radius);
+	const float* getPWeights();
+	const float* getPSizes();
+	int getNumParticles();
 	bool isFull() const;
 };
 

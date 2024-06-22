@@ -32,7 +32,8 @@ ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, 
 		typeMat[i] = new float[nTypes] {0.0f};
 
 	typeForceFuncs = new forceFunc[nTypes]{DEFAULTFORCEFUNCTION};
-
+	typeSizes = new float[nTypes] {gSize / 25};
+	typeWeights = new float[nTypes] {1.0f};
 
 	//Initialising free particle id vector and particle address array
 	particles = new Particle * [maxParticles]();
@@ -68,10 +69,8 @@ void ParticleSimulation::step(float timeStep)
 	//update position
 	grid->step(timeStep);
 	
-	//detect collisions
-	
-	
-	//resolve collisions
+	//detect and resolve collisions
+	grid->handleCollsions(collisionResolver);
 
 }
 
@@ -129,6 +128,39 @@ int ParticleSimulation::addParticle(float x, float y, int type)
 int ParticleSimulation::addParticle(int type) 
 {
 	return addParticle(0.0f, 0.0f, type, 0.0f, 0.0f);
+}
+
+int ParticleSimulation::setPWeight(int type, float weight)
+{
+	if (type >= numTypes || type < 0)
+		return 1;
+
+	typeWeights[type] = weight;
+	return 0;
+}
+
+int ParticleSimulation::setPSize(int type, float radius)
+{
+	if (type >= numTypes || type < 0)
+		return 1;
+
+	typeSizes[type] = radius;
+	return 0;
+}
+
+const float* ParticleSimulation::getPWeights()
+{
+	return typeWeights;
+}
+
+const float* ParticleSimulation::getPSizes()
+{
+	return typeSizes;
+}
+
+int ParticleSimulation::getNumParticles()
+{
+	return numParticles;
 }
 
 bool ParticleSimulation::isFull() const 
