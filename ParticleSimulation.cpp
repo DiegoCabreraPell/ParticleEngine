@@ -70,7 +70,7 @@ void ParticleSimulation::step(float timeStep)
 	grid->step(timeStep);
 	
 	//detect and resolve collisions
-	grid->handleCollsions(collisionResolver);
+	grid->handleCollsions(collisionResolver, typeSizes);
 
 }
 

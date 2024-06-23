@@ -101,3 +101,37 @@ void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*for
 
 	}
 }
+
+void GridSection::handleCollsions(void (*resolver)(Particle, Particle), float* sizes) 
+{
+	float dx, dy, distance;
+
+	for (auto i = particles.begin(); i != particles.end(); i++)
+	{
+		//check for collisions to particles in its sector
+		for (auto j = i; j != particles.end(); j++)
+		{
+			dy = i->y - j->y;
+			dx = i->x - j->x;
+
+			if (dx == 0.0f)
+				dx = 0.00001;
+			if (dy == 0.0f)
+				dy = 0.00001;
+
+			distance = sqrtf(powf(dy, 2) + powf(dx, 2));
+
+			if (distance - sizes[i->type] - sizes[j->type] < 0)
+				resolver(i, j);
+		}
+
+		//checks for collisions with particles in adjacent grids
+		for (auto sector = nearGrids.begin(); sector != nearGrids.end(); sector++)
+		{
+			for (auto p = sector->particles.begin(); p != sector->particles.end(); p++)
+			{
+
+			}
+		}
+	}
+}

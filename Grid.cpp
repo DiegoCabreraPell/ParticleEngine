@@ -85,3 +85,11 @@ void Grid::updateVelocities(float time, float** typeMatrix, forceFunc* forceFunc
 		sections[i]->updateVelocities(time, typeMatrix, forceFuncs);
 	}
 }
+
+void Grid::handleCollsions(void (*resolver)(Particle, Particle), float* sizes)
+{
+	for (int i = 0; i < sizeX * sizeY; i++)
+	{
+		sections[i]->handleCollsions(resolver, sizes);
+	}
+}
