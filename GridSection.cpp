@@ -122,7 +122,7 @@ void GridSection::handleCollsions(void (*resolver)(Particle, Particle), float* s
 			distance = sqrtf(powf(dy, 2) + powf(dx, 2));
 
 			if (distance - sizes[i->type] - sizes[j->type] < 0)
-				resolver(i, j);
+				resolver(*i, *j);
 		}
 
 		//checks for collisions with particles in adjacent grids
@@ -130,7 +130,18 @@ void GridSection::handleCollsions(void (*resolver)(Particle, Particle), float* s
 		{
 			for (auto p = sector->particles.begin(); p != sector->particles.end(); p++)
 			{
+				dy = i->y - p->y;
+				dx = i->x - p->x;
 
+				if (dx == 0.0f)
+					dx = 0.00001;
+				if (dy == 0.0f)
+					dy = 0.00001;
+
+				distance = sqrtf(powf(dy, 2) + powf(dx, 2));
+
+				if (distance - sizes[i->type] - sizes[p->type] < 0)
+					resolver(*i, *p);
 			}
 		}
 	}
