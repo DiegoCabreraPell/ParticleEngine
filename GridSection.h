@@ -23,7 +23,7 @@ public:
 	void addNear(GridSection gs);
 	void step(float time);
 	void updateVelocities(float time, float** typeMatrix, forceFunc* foreFuncs);
-	void handleCollsions(void (*resolver)(Particle, Particle), float* sizes);
+	void handleCollsions(collisionResolver resolver, float* sizes);
 };
 
 #endif
