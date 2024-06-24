@@ -174,3 +174,8 @@ bool ParticleSimulation::isFull() const
 	}
 }
 
+Particle** ParticleSimulation::particleList()
+{
+	return particles;
+}
+

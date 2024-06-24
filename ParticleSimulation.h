@@ -51,6 +51,7 @@ public:
 	const float* getPSizes();
 	int getNumParticles();
 	bool isFull() const;
+	Particle** particleList();
 };
 
 #endif
