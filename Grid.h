@@ -4,6 +4,7 @@
 #include "GridSection.h"
 #include "Particle.h"
 #include <array>
+#include"SimTypes.h"
 
 class Grid
 {
@@ -16,7 +17,7 @@ public:
 	int deleteParticle(int pID, float pX, float pY);
 	void step(float time);
 	void updateVelocities(float time, float** typeMatrix, forceFunc* forceFuncs);
-	void handleCollsions(void (*resolver)(Particle, Particle), float* sizes);
+	void handleCollsions(collisionResolver resolver, float* sizes);
 };
 
 #endif 

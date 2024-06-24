@@ -1,7 +1,7 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
 
-void DEFAULTCOLLISIONRESOLVER(Particle p1, Particle p2)
+void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance)
 {
 
 }
@@ -18,7 +18,7 @@ ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, 
 	grid = new Grid(numX, numY, gSize, maxCmptDist, mParticles);
 
 	aspectRatio = (float)pHeight / (float)pWidth;
-	collisionResolver = DEFAULTCOLLISIONRESOLVER;
+	resolver = DEFAULTCOLLISIONRESOLVER;
 	gridSize = gSize;
 
 	pixelWidth = pWidth;
@@ -70,12 +70,12 @@ void ParticleSimulation::step(float timeStep)
 	grid->step(timeStep);
 	
 	//detect and resolve collisions
-	grid->handleCollsions(collisionResolver, typeSizes);
+	grid->handleCollsions(resolver, typeSizes);
 
 }
 
-void ParticleSimulation::setCollisionResolver(void (*res)(Particle, Particle)) {
-	collisionResolver = res;
+void ParticleSimulation::setCollisionResolver(collisionResolver res) {
+	resolver = res;
 }
 
 Particle* ParticleSimulation::getParticle(int pID) 

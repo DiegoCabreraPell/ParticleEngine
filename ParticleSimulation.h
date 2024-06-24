@@ -20,7 +20,7 @@ protected:
 	int numTypes, gridSize;
 	float speedLimit;
 	float* typeSizes, *typeWeights;
-	void (*collisionResolver) (Particle, Particle);
+	collisionResolver resolver;
 
 	//Particle information
 	int numParticles, maxParticles;

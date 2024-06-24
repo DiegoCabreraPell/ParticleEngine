@@ -102,7 +102,7 @@ void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*for
 	}
 }
 
-void GridSection::handleCollsions(void (*resolver)(Particle, Particle), float* sizes) 
+void GridSection::handleCollsions(collisionResolver resolver, float* sizes) 
 {
 	float dx, dy, distance;
 
@@ -122,7 +122,7 @@ void GridSection::handleCollsions(void (*resolver)(Particle, Particle), float* s
 			distance = sqrtf(powf(dy, 2) + powf(dx, 2));
 
 			if (distance - sizes[i->type] - sizes[j->type] < 0)
-				resolver(*i, *j);
+				resolver(*i, *j, distance);
 		}
 
 		//checks for collisions with particles in adjacent grids
@@ -141,7 +141,7 @@ void GridSection::handleCollsions(void (*resolver)(Particle, Particle), float* s
 				distance = sqrtf(powf(dy, 2) + powf(dx, 2));
 
 				if (distance - sizes[i->type] - sizes[p->type] < 0)
-					resolver(*i, *p);
+					resolver(*i, *p, distance);
 			}
 		}
 	}
