@@ -86,7 +86,7 @@ void Grid::updateVelocities(float time, float** typeMatrix, forceFunc* forceFunc
 	}
 }
 
-void Grid::handleCollsions(void (*resolver)(Particle, Particle), float* sizes)
+void Grid::handleCollsions(collisionResolver resolver, float* sizes)
 {
 	for (int i = 0; i < sizeX * sizeY; i++)
 	{
