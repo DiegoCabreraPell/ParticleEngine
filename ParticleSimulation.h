@@ -45,11 +45,11 @@ public:
 	int addParticle(int type);
 	int setPWeight(int type, float weight);
 	int setPSize(int type, float radius);
-	const float* getPWeights();
-	const float* getPSizes();
-	int getNumParticles();
+	const float* getPWeights() const;
+	const float* getPSizes() const;
+	int getNumParticles() const;
 	bool isFull() const;
-	Particle** particleList();
+	Particle** particleList() const;
 };
 
 #endif
