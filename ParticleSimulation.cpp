@@ -4,7 +4,31 @@
 
 void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance, Grid &grid)
 {
+	float dy, dx, ddx, ddy, nx, ny, force;
+
+	dx = p1.x - p2.x;
+	dy = p1.y - p2.y;
+
+	ddx = p1.dx - p2.dx;
+	ddy = p1.dy - p2.dy;
 	
+	force = sqrtf(powf(ddx, 2) + powf(ddy, 2));
+
+	nx = dx / distance;
+	ny = dy / distance;
+	
+	p1.addX(- nx * distance / 2);
+	p1.addY(- ny * distance / 2);
+
+	p2.addY(ny * distance / 2);
+	p2.addY(ny * distance / 2);
+
+	p1.addDx(-nx * force);
+	p1.addDy(-ny * force);
+	
+	p2.addDx(nx * force);
+	p2.addDy(ny * force);
+
 }
 
 ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, int nTypes, float maxCmptDist, float gSize, forceFunc dForceFunc)
@@ -146,17 +170,17 @@ int ParticleSimulation::setPSize(int type, float radius)
 	return 0;
 }
 
-const float* ParticleSimulation::getPWeights()
+const float* ParticleSimulation::getPWeights() const
 {
 	return typeWeights;
 }
 
-const float* ParticleSimulation::getPSizes()
+const float* ParticleSimulation::getPSizes() const
 {
 	return typeSizes;
 }
 
-int ParticleSimulation::getNumParticles()
+int ParticleSimulation::getNumParticles() const
 {
 	return numParticles;
 }
@@ -172,7 +196,7 @@ bool ParticleSimulation::isFull() const
 	}
 }
 
-Particle** ParticleSimulation::particleList()
+Particle** ParticleSimulation::particleList () const
 {
 	return particles;
 }
