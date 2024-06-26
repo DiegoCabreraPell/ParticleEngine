@@ -5,9 +5,7 @@
 #include"SimTypes.h"
 
 
-void DEFAULTCOLLISIONRESOLVER(Particle, Particle);
-
-float DEFAULTFORCEFUNCTION(float);
+void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance, Grid& grid);
 
 class ParticleSimulation
 {
@@ -29,16 +27,16 @@ protected:
 	vector<int> freeIDs;
 
 	float** typeMat;
-	forceFunc* typeForceFuncs;
+	forceFunc defaultForceFunc, *typeForceFuncs;
 
 	Grid* grid;
 	 
 public:
-	ParticleSimulation(int pHeight, int pWidth, int mParticles, int numTypes, float maxCmptDist, float gSize);
+	ParticleSimulation(int pHeight, int pWidth, int mParticles, int nTypes, float maxCmptDist, float gSize, forceFunc dForceFunc);
 	void setSpeedLimit(float limit);
 	int getFreeID();
 	void step(float timeStep);
-	void setCollisionResolver(void (*res)(Particle, Particle));
+	void setCollisionResolver(collisionResolver res);
 
 	Particle* getParticle(int pID);
 	int removeParticle(int pID);

@@ -2,6 +2,6 @@
 #define SIMTYPES_H
 
 typedef float (*forceFunc)(float);
-typedef void (*collisionResolver)(Particle&, Particle&, float dist);
+typedef void (*collisionResolver)(Particle&, Particle&, float dist, Grid& grid);
 
 #endif
