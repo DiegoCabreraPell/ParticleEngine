@@ -5,7 +5,7 @@
 #include"SimTypes.h"
 
 
-void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance, Grid& grid);
+void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance);
 
 class ParticleSimulation
 {
