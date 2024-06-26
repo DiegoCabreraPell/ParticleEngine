@@ -1,17 +1,13 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
+#include"SimTypes.h"
 
-void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance)
+void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance, Grid &grid)
 {
-
+	
 }
 
-float DEFAULTFORCEFUNCTION(float dist) 
-{
-
-}
-
-ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, int nTypes, float maxCmptDist, float gSize)
+ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, int nTypes, float maxCmptDist, float gSize, forceFunc dForceFunc)
 {
 	int numX = (int) round((float)pWidth/gridSize);
 	int numY = (int) round((float)pHeight/gridSize);
@@ -31,7 +27,9 @@ ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, 
 	for (int i = 0; i < nTypes; i++)
 		typeMat[i] = new float[nTypes] {0.0f};
 
-	typeForceFuncs = new forceFunc[nTypes]{DEFAULTFORCEFUNCTION};
+	defaultForceFunc = dForceFunc;
+
+	typeForceFuncs = new forceFunc[nTypes]{defaultForceFunc};
 	typeSizes = new float[nTypes] {gSize / 25};
 	typeWeights = new float[nTypes] {1.0f};
 
