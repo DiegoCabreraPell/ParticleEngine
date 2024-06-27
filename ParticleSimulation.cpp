@@ -48,6 +48,8 @@ ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, 
 	numParticles = 0;
 	speedLimit = 100.0f / 60.0f;
 
+	typeMat = new float*[nTypes];
+
 	for (int i = 0; i < nTypes; i++)
 		typeMat[i] = new float[nTypes] {0.0f};
 
@@ -94,6 +96,8 @@ void ParticleSimulation::step(float timeStep)
 	//detect and resolve collisions
 	grid->handleCollsions(resolver, typeSizes);
 
+	//Refreshing the grid positions
+	
 }
 
 void ParticleSimulation::setCollisionResolver(collisionResolver res) {
