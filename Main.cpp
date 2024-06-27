@@ -9,11 +9,17 @@
 #include"VBO.h"
 #include"EBO.h"
 #include"fillBuffer.h"
-#include"particle2DClass.h"
-#include"simulateStep.h"
 
-#define NUM_PARTICLES_MAIN 400
+#include"ParticleSimulation.h"
+#include"Particle.h"
+
+#define NUM_PARTICLES_MAIN 200
 #define NUM_TYPES 4
+
+float defaultForceFunc(float x) 
+{
+	return (x - 80.0f) / (80.0f - 10.0f * x);
+}
 
 int main()
 {
@@ -53,10 +59,10 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
-		0.008f, 1.0f, 0.0f, 0.0f,
-		0.008f, 0.0f, 1.0f, 0.0f,
-		0.008f, 0.0f, 0.0f, 1.0f,
-		0.008f, 1.0f, 1.0f, 1.0f
+		0.08f, 1.0f, 0.0f, 0.0f,
+		0.08f, 0.0f, 1.0f, 0.0f,
+		0.08f, 0.0f, 0.0f, 1.0f,
+		0.08f, 1.0f, 1.0f, 1.0f
 	};
 
 	GLfloat typeMatrix[] = {
@@ -66,7 +72,7 @@ int main()
 		0.002f, 0.001f, 0.001f, -0.005f
 	};
 
-	Particle2D **particles = new Particle2D * [num_particles] {};
+	ParticleSimulation simulator = ParticleSimulation(800, 800, num_particles, NUM_TYPES, 88, 20, defaultForceFunc);
 
 	GLfloat randX, randY;
 
@@ -74,16 +80,16 @@ int main()
 	{
 		for (int j = 0; j < NUM_TYPES; j++)
 		{
-			randX = (GLfloat)(rand() % 800) / 400.0f - 1;
-			randY = (GLfloat)(rand() % 800) / 400.0f - 1;
-			particles[i * NUM_TYPES + j] = new Particle2D(randX, randY, j);
+			randX = (GLfloat)(rand() % 800)/ 400.0f;
+			randY = (GLfloat)(rand() % 800) / 400.0f;
+			simulator.addParticle(randX, randY, j);
 		}
 	}
 
 	// Initilising vertex and index buffers
-	GLfloat vertices[13 * 6 * num_particles] = {};
+	GLfloat *vertices = new GLfloat[13 * 6 * num_particles]{};
 
-	GLuint indices[21 * num_particles] = {};
+	GLuint *indices = new GLuint[21 * num_particles]{};
 	fillIndices(indices, num_particles);
 
 	Shader shaderProgram("particle2d.vert", "default.frag");
@@ -114,8 +120,9 @@ int main()
 			glUniform1f(uniID, 0.0f);
 
 			//Simulation
-			simulateStep(particles, num_particles, typeData, 4, typeMatrix, NUM_TYPES);
-			fillVertices(particles, vertices, num_particles, typeData, 4);
+			simulator.step(1.0f / 60.0f);
+			
+			//fillVertices(simulator.particleList(), vertices, num_particles, typeData, 4);
 
 			VAO1.Bind();
 			VBO VBO1(vertices, sizeof(vertices));
@@ -131,7 +138,7 @@ int main()
 
 			//Draw call
 			VAO1.Bind();
-			glDrawElements(GL_TRIANGLE_STRIP, 21 * num_particles, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLE_STRIP, 21 * simulator.getNumParticles(), GL_UNSIGNED_INT, 0);
 			VAO1.Unbind();
 
 			//deleting old VBO
