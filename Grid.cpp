@@ -22,19 +22,15 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 	GridSection g1, g2;
 
 	//Initilising all gridsections
-	*sections = new GridSection[numGrid];
-	for (int i = 0; i < numX; i++)
-	{
-		*(sections[i]) = GridSection();
-	}
+	sections = new GridSection[numGrid];
 
 	//Filling up the near and adjacent sections of seach gridsections
-	for (int i = 0; i < numX; i++)
+	for (int i = 0; i < numGrid; i++)
 	{
 		xPos = i % numY;
 		yPos = i - xPos;
 
-		g1 = *(sections[i]);
+		g1 = sections[i];
 
 		for (int x = xPos- iGridRad; x < xPos+ iGridRad; x++)
 		{
@@ -45,7 +41,7 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 					distance = sqrtf(powf((float)(xPos - x), 2) + powf((float)(yPos - y), 2));
 					if (distance <= gridsRadius)
 					{
-						g2 = *(sections[x + y * numY]);
+						g2 = sections[x + y * numY];
 						g1.addAdjacent(g2);
 
 						if (xPos == x + 1 || xPos == x - 1 || yPos == y + 1 || yPos == y - 1) {
@@ -60,13 +56,13 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 
 void Grid::insertParticle(Particle& p)
 {
-	GridSection gs = *sections[(int)p.x + (int)p.y * sizeY];
+	GridSection gs = sections[(int)p.x + (int)p.y * sizeY];
 	gs.addParticle(p);
 }
 
 int Grid::deleteParticle(int pID, float pX, float pY)
 {
-	GridSection gs = *sections[(int)pX + (int)pY * sizeY];
+	GridSection gs = sections[(int)pX + (int)pY * sizeY];
 	return gs.removeParticle(pID);
 }
 
@@ -74,7 +70,7 @@ void Grid::step(float time)
 {
 	for (int i = 0; i < sizeX * sizeY; i++)
 	{
-		sections[i]->step(time);
+		sections[i].step(time);
 	}
 }
 
@@ -82,7 +78,7 @@ void Grid::updateVelocities(float time, float** typeMatrix, forceFunc* forceFunc
 {
 	for (int i = 0; i < sizeX * sizeY; i++)
 	{
-		sections[i]->updateVelocities(time, typeMatrix, forceFuncs);
+		sections[i].updateVelocities(time, typeMatrix, forceFuncs);
 	}
 }
 
@@ -90,6 +86,6 @@ void Grid::handleCollsions(collisionResolver resolver, float* sizes)
 {
 	for (int i = 0; i < sizeX * sizeY; i++)
 	{
-		sections[i]->handleCollsions(resolver, sizes);
+		sections[i].handleCollsions(resolver, sizes);
 	}
 }

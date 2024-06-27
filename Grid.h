@@ -9,7 +9,7 @@
 class Grid
 {
 	int capacity, numParticles, gridSize, sizeX, sizeY;
-	GridSection **sections;
+	GridSection *sections;
 
 public:
 	Grid(int numX, int numY, float size, float maxReach, int cap);
