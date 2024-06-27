@@ -32,9 +32,9 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 
 		g1 = sections[i];
 
-		for (int x = xPos- iGridRad; x < xPos+ iGridRad; x++)
+		for (int x = xPos - iGridRad; x < (xPos + iGridRad) && x < numX; x++)
 		{
-			for (int y = yPos - iGridRad; y < yPos + iGridRad; y++)
+			for (int y = yPos - iGridRad; y < (yPos + iGridRad) && y < numY; y++)
 			{
 				if (x >= 0 && y >= 0 && x != xPos && y != yPos)
 				{
