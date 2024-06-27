@@ -8,9 +8,9 @@
 
 class Grid
 {
-	int capacity, numParticles, gridSize, sizeX, sizeY;
+	int capacity, numParticles, sizeX, sizeY;
 	GridSection *sections;
-
+	float gridSize;
 public:
 	Grid(int numX, int numY, float size, float maxReach, int cap);
 	void insertParticle(Particle &p);
