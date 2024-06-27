@@ -138,7 +138,7 @@ void GridSection::handleCollsions(collisionResolver resolver, float* sizes)
 				if (dy == 0.0f)
 					dy = 0.00001;
 
-				distance = sqrtf(powf(dy, 2) + powf(dx, 2)) - sizes[i->type] - sizes[j->type];
+				distance = sqrtf(powf(dy, 2) + powf(dx, 2)) - sizes[i->type] - sizes[p->type];
 
 				if (distance < 0)
 					resolver(*i, *p, distance);
