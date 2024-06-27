@@ -56,7 +56,7 @@ ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, 
 	defaultForceFunc = dForceFunc;
 
 	typeForceFuncs = new forceFunc[nTypes]{defaultForceFunc};
-	typeSizes = new float[nTypes] {gSize / 25};
+	typeSizes = new float[nTypes] {gSize / 5};
 	typeWeights = new float[nTypes] {1.0f};
 
 	//Initialising free particle id vector and particle address array
