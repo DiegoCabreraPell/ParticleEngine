@@ -13,8 +13,8 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
 
-#define NUM_PARTICLES_MAIN 200
-#define NUM_TYPES 4
+#define NUM_PARTICLES_MAIN 1
+#define NUM_TYPES 1
 
 float defaultForceFunc(float x) 
 {
@@ -122,7 +122,7 @@ int main()
 			//Simulation
 			simulator.step(1.0f / 60.0f);
 			
-			//fillVertices(simulator.particleList(), vertices, num_particles, typeData, 4);
+			fillVertices(simulator.particleList(), vertices, num_particles, typeData, 4);
 
 			VAO1.Bind();
 			VBO VBO1(vertices, sizeof(vertices));
