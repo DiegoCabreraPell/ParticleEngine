@@ -45,12 +45,6 @@
     <ClInclude Include="fillBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="particle2DClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="simulateStep.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>Header Files\Simulation</Filter>
     </ClInclude>
@@ -97,13 +91,7 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="particle2DClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="fillBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="simulateStep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
