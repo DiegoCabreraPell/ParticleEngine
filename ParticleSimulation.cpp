@@ -33,8 +33,8 @@ void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance)
 
 ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, int nTypes, float maxCmptDist, float gSize, forceFunc dForceFunc)
 {
-	int numX = (int) round((float)pWidth/gridSize);
-	int numY = (int) round((float)pHeight/gridSize);
+	int numX = (int) round((float)pWidth/gSize);
+	int numY = (int) round((float)pHeight/gSize);
 	grid = new Grid(numX, numY, gSize, maxCmptDist, mParticles);
 
 	aspectRatio = (float)pHeight / (float)pWidth;
