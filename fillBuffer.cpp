@@ -50,7 +50,7 @@ void fillVertices(Particle** particles, GLfloat* vertexList, int num_particles, 
 
 			//Putting down center vertex
 			vertexList[vIndex++] = particle->x / 400.0f - 1.0f;
-			vertexList[vIndex++] = particle->y / 400.0f - 1.0f;;
+			vertexList[vIndex++] = particle->y / 400.0f - 1.0f;
 			vertexList[vIndex++] = r;
 			vertexList[vIndex++] = g;
 			vertexList[vIndex++] = b;
