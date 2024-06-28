@@ -109,7 +109,7 @@ int main()
 	{	
 		crntTime = glfwGetTime();
 		timeDiff = crntTime - prevTime;
-		if (timeDiff >= 1 / 60)
+		if (timeDiff >= 1.0f / 60.0f)
 		{
 			// Specify the color of the background
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
