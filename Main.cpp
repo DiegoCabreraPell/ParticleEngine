@@ -87,9 +87,9 @@ int main()
 	}
 
 	// Initilising vertex and index buffers
-	GLfloat *vertices = new GLfloat[13 * 6 * num_particles]{};
+	GLfloat vertices[13 * 6 * num_particles] = {};
 
-	GLuint *indices = new GLuint[21 * num_particles]{};
+	GLuint indices[21 * num_particles] = {};
 	fillIndices(indices, num_particles);
 
 	Shader shaderProgram("particle2d.vert", "default.frag");
