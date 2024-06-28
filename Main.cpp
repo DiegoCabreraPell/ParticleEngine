@@ -80,8 +80,8 @@ int main()
 	{
 		for (int j = 0; j < NUM_TYPES; j++)
 		{
-			randX = (GLfloat)(rand() % 800)/ 400.0f;
-			randY = (GLfloat)(rand() % 800) / 400.0f;
+			randX = (GLfloat)(rand() % 800);
+			randY = (GLfloat)(rand() % 800);
 			simulator.addParticle(randX, randY, j);
 		}
 	}
