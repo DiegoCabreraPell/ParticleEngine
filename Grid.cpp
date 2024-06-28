@@ -56,7 +56,7 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 
 void Grid::insertParticle(Particle& p)
 {
-	GridSection gs = sections[(int)p.x + (int)p.y * sizeY];
+	GridSection gs = sections[(int)(p.x/gridSize) + (int)(p.y/gridSize) * sizeY];
 	gs.addParticle(p);
 }
 
