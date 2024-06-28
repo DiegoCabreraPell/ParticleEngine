@@ -46,7 +46,7 @@ void fillVertices(Particle** particles, GLfloat* vertexList, int num_particles, 
 			g = dataArr[dataOffset + G];
 			b = dataArr[dataOffset + B];
 
-			//Setting vertices total: 13 per particle @ 6 comps per particle
+			//Setting vertices total: 13 per particle @ 6 comps per vertex
 
 			//Putting down center vertex
 			vertexList[vIndex++] = particle->x / 400.0f - 1.0f;
