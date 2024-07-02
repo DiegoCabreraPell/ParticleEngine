@@ -59,10 +59,10 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
-		0.008f, 1.0f, 0.0f, 0.0f,
-		0.008f, 0.0f, 1.0f, 0.0f,
-		0.008f, 0.0f, 0.0f, 1.0f,
-		0.008f, 1.0f, 1.0f, 1.0f
+		0.08f, 1.0f, 0.0f, 0.0f,
+		0.08f, 0.0f, 1.0f, 0.0f,
+		0.08f, 0.0f, 0.0f, 1.0f,
+		0.08f, 1.0f, 1.0f, 1.0f
 	};
 
 	GLfloat typeMatrix[] = {
@@ -80,8 +80,8 @@ int main()
 	{
 		for (int j = 0; j < NUM_TYPES; j++)
 		{
-			randX = 10.0f;//(GLfloat)(rand() % 800);
-			randY = 10.0f;//(GLfloat)(rand() % 800);
+			randX = (GLfloat)(rand() % 800);
+			randY = (GLfloat)(rand() % 800);
 			simulator.addParticle(randX, randY, j);
 		}
 	}

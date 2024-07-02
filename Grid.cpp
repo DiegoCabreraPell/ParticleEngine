@@ -29,7 +29,7 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 	{
 		xPos = i % numY;
 		yPos = i - xPos;
-
+    
 		g1 = &sections[i];
 
 		for (int x = xPos - iGridRad; x < (xPos + iGridRad) && x < numX; x++)
