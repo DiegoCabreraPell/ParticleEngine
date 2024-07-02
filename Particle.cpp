@@ -47,6 +47,6 @@ int Particle::ID() const {
 }
 
 void Particle::step(float s) {
-	addX(dx);
-	addY(dy);
+	addX(dx*s);
+	addY(dy*s);
 }
