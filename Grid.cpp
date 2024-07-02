@@ -19,7 +19,7 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 	int xPos, yPos;
 	float distance;
 
-	GridSection g1, g2;
+	GridSection *g1, *g2;
 
 	//Initilising all gridsections
 	sections = new GridSection[numGrid];
@@ -30,7 +30,7 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 		xPos = i % numY;
 		yPos = i - xPos;
 
-		g1 = sections[i];
+		g1 = &sections[i];
 
 		for (int x = xPos - iGridRad; x < (xPos + iGridRad) && x < numX; x++)
 		{
@@ -41,11 +41,11 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 					distance = sqrtf(powf((float)(xPos - x), 2) + powf((float)(yPos - y), 2));
 					if (distance <= gridsRadius)
 					{
-						g2 = sections[x + y * numY];
-						g1.addAdjacent(g2);
+						g2 = &sections[x + y * numY];
+						g1->addAdjacent(*g2);
 
 						if (xPos == x + 1 || xPos == x - 1 || yPos == y + 1 || yPos == y - 1) {
-							g1.addNear(g2);
+							g1->addNear(*g2);
 						}
 					}
 				}
@@ -56,13 +56,13 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 
 void Grid::insertParticle(Particle& p)
 {
-	GridSection gs = sections[(int)(p.x/gridSize) + (int)(p.y/gridSize) * sizeY];
+	GridSection &gs = sections[(int)(p.x/gridSize) + (int)(p.y/gridSize) * sizeY];
 	gs.addParticle(p);
 }
 
 int Grid::deleteParticle(int pID, float pX, float pY)
 {
-	GridSection gs = sections[(int)pX + (int)pY * sizeY];
+	GridSection &gs = sections[(int)pX + (int)pY * sizeY];
 	return gs.removeParticle(pID);
 }
 
