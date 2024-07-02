@@ -93,9 +93,6 @@ void ParticleSimulation::step(float timeStep)
 	//update position
 	grid->step(timeStep);
 	
-	//detect and resolve collisions
-	grid->handleCollsions(resolver, typeSizes);
-
 	//Refreshing the grid positions
 	grid->clear();
 
@@ -111,6 +108,9 @@ void ParticleSimulation::step(float timeStep)
 			count -= 1;
 		}
 	}
+
+	//detect and resolve collisions
+	grid->handleCollsions(resolver, typeSizes);
 }
 
 void ParticleSimulation::setCollisionResolver(collisionResolver res) {
