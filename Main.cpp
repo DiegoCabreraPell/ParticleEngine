@@ -59,10 +59,10 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
-		0.08f, 1.0f, 0.0f, 0.0f,
-		0.08f, 0.0f, 1.0f, 0.0f,
-		0.08f, 0.0f, 0.0f, 1.0f,
-		0.08f, 1.0f, 1.0f, 1.0f
+		0.008f, 1.0f, 0.0f, 0.0f,
+		0.008f, 0.0f, 1.0f, 0.0f,
+		0.008f, 0.0f, 0.0f, 1.0f,
+		0.008f, 1.0f, 1.0f, 1.0f
 	};
 
 	GLfloat typeMatrix[] = {
