@@ -89,3 +89,11 @@ void Grid::handleCollsions(collisionResolver resolver, float* sizes)
 		sections[i].handleCollsions(resolver, sizes);
 	}
 }
+
+void Grid::clear()
+{
+	for (int i = 0; i < sizeX * sizeY; i++)
+	{
+		sections[i].clear();
+	}
+}
