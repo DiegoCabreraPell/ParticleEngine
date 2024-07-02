@@ -24,6 +24,7 @@ public:
 	void step(float time);
 	void updateVelocities(float time, float** typeMatrix, forceFunc* foreFuncs);
 	void handleCollsions(collisionResolver resolver, float* sizes);
+	void clear();
 };
 
 #endif

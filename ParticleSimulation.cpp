@@ -93,11 +93,24 @@ void ParticleSimulation::step(float timeStep)
 	//update position
 	grid->step(timeStep);
 	
+	//Refreshing the grid positions
+	grid->clear();
+
+	int count = numParticles;
+	int ind = 0;
+	Particle* p;
+	while (count > 0)
+	{
+		p = particles[ind++];
+		if (p != NULL)
+		{
+			grid->insertParticle(*p);
+			count -= 1;
+		}
+	}
+
 	//detect and resolve collisions
 	grid->handleCollsions(resolver, typeSizes);
-
-	//Refreshing the grid positions
-	
 }
 
 void ParticleSimulation::setCollisionResolver(collisionResolver res) {
@@ -205,3 +218,7 @@ Particle** ParticleSimulation::particleList () const
 	return particles;
 }
 
+void ParticleSimulation::setTypeInteractionCoefficient(int t1, int t2, float coeff)
+{
+	typeMat[t1][t2] = coeff;
+}

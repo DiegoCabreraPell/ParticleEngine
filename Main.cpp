@@ -85,6 +85,12 @@ int main()
 			simulator.addParticle(randX, randY, j);
 		}
 	}
+	for (int i = 0; i < NUM_TYPES; i++)
+	{
+		simulator.setPSize(i, 800 * 0.008);
+	}
+
+	simulator.particleList()[0]->addDx(6);
 
 	// Initilising vertex and index buffers
 	GLfloat vertices[13 * 6 * num_particles] = {};

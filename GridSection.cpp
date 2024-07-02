@@ -146,3 +146,8 @@ void GridSection::handleCollsions(collisionResolver resolver, float* sizes)
 		}
 	}
 }
+
+void GridSection::clear()
+{
+	particles.clear();
+}

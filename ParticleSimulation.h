@@ -50,6 +50,7 @@ public:
 	int getNumParticles() const;
 	bool isFull() const;
 	Particle** particleList() const;
+	void setTypeInteractionCoefficient(int t1, int t2, float coeff);
 };
 
 #endif
