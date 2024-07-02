@@ -9,7 +9,7 @@ GridSection::GridSection()
 	nearGrids = vector<GridSection>();
 }
 
-void GridSection::addParticle(Particle p)
+void GridSection::addParticle(Particle &p)
 {
 	particles.push_back(p);
 }
@@ -25,12 +25,12 @@ int GridSection::removeParticle(int pID)
 	return 1;
 }
 
-void GridSection::addAdjacent(GridSection gs)
+void GridSection::addAdjacent(GridSection &gs)
 {
 	adjacentGrids.push_back(gs);
 }
 
-void GridSection::addNear(GridSection gs)
+void GridSection::addNear(GridSection &gs)
 {
 	nearGrids.push_back(gs);
 }

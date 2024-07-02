@@ -16,11 +16,11 @@ class GridSection
 public:
 	GridSection();
 
-	void addParticle(Particle p);
+	void addParticle(Particle &p);
 	int removeParticle(int pID);
 
-	void addAdjacent(GridSection gs);
-	void addNear(GridSection gs);
+	void addAdjacent(GridSection &gs);
+	void addNear(GridSection &gs);
 	void step(float time);
 	void updateVelocities(float time, float** typeMatrix, forceFunc* foreFuncs);
 	void handleCollsions(collisionResolver resolver, float* sizes);
