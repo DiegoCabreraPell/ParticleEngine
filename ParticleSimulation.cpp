@@ -97,7 +97,20 @@ void ParticleSimulation::step(float timeStep)
 	grid->handleCollsions(resolver, typeSizes);
 
 	//Refreshing the grid positions
-	
+	grid->clear();
+
+	int count = numParticles;
+	int ind = 0;
+	Particle* p;
+	while (count > 0)
+	{
+		p = particles[ind++];
+		if (p != NULL)
+		{
+			grid->insertParticle(*p);
+			count -= 1;
+		}
+	}
 }
 
 void ParticleSimulation::setCollisionResolver(collisionResolver res) {
