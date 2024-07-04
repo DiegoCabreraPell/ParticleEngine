@@ -13,7 +13,7 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
 
-#define NUM_PARTICLES_MAIN 1
+#define NUM_PARTICLES_MAIN 20
 #define NUM_TYPES 1
 
 float defaultForceFunc(float x) 
@@ -59,14 +59,14 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
-		0.008f, 1.0f, 0.0f, 0.0f,
+		0.008f, 1.0f, 1.0f, 1.0f,
 		0.008f, 0.0f, 1.0f, 0.0f,
 		0.008f, 0.0f, 0.0f, 1.0f,
 		0.008f, 1.0f, 1.0f, 1.0f
 	};
 
 	GLfloat typeMatrix[] = {
-		0.0001f, -0.002f, -0.001f, 0.002f,
+		-10.00f, -0.002f, -0.001f, 0.002f,
 		-0.002f, -0.005f, 0.003f, 0.001f,
 		-0.001f, 0.003f, 0.005f, 0.001f,
 		0.002f, 0.001f, 0.001f, -0.005f
@@ -88,9 +88,13 @@ int main()
 	for (int i = 0; i < NUM_TYPES; i++)
 	{
 		simulator.setPSize(i, 800 * 0.008);
+		for (int j = 0; j < NUM_TYPES; j++)
+		{
+			simulator.setTypeInteractionCoefficient(i, j, typeMatrix[i * NUM_TYPES + j]);
+		}
 	}
 
-	simulator.particleList()[0]->addDx(6);
+	simulator.setSpeedLimit(360.0f);
 
 	// Initilising vertex and index buffers
 	GLfloat vertices[13 * 6 * num_particles] = {};
