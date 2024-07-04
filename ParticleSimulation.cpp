@@ -110,13 +110,25 @@ void ParticleSimulation::step(float timeStep)
 			//bounds correction
 			size = typeSizes[p->type];
 			if (p->x > pixelWidth - size)
+			{
 				p->x = pixelWidth - size;
+				p->dx *= -1;
+			}
 			else if (p->x < size)
+			{
 				p->x = size;
+				p->dx *= -1;
+			}
 			if (p->y > pixelHeight - size)
+			{
 				p->y = pixelHeight - size;
+				p->dy *= -1;
+			}
 			else if (p->y < size)
+			{
 				p->y = size;
+				p->dy *= -1;
+			}
 			
 			grid->insertParticle(*p);
 			count -= 1;
