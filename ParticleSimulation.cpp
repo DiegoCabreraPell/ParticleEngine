@@ -99,11 +99,25 @@ void ParticleSimulation::step(float timeStep)
 	int count = numParticles;
 	int ind = 0;
 	Particle* p;
+
+	float size;
+
 	while (count > 0)
 	{
 		p = particles[ind++];
 		if (p != NULL)
 		{
+			//bounds correction
+			size = typeSizes[p->type];
+			if (p->x > pixelWidth - size)
+				p->x = pixelWidth - size;
+			else if (p->x < size)
+				p->x = size;
+			if (p->y > pixelHeight - size)
+				p->y = pixelHeight - size;
+			else if (p->y < size)
+				p->y = size;
+			
 			grid->insertParticle(*p);
 			count -= 1;
 		}
