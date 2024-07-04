@@ -10,8 +10,8 @@ using namespace std;
 class GridSection
 {
 	vector<Particle*> particles;
-	vector<GridSection> adjacentGrids;
-	vector<GridSection> nearGrids;
+	vector<GridSection*> adjacentGrids;
+	vector<GridSection*> nearGrids;
 
 public:
 	GridSection();

@@ -5,8 +5,8 @@ using namespace std;
 GridSection::GridSection() 
 {
 	particles = vector<Particle*>();
-	adjacentGrids = vector<GridSection>();
-	nearGrids = vector<GridSection>();
+	adjacentGrids = vector<GridSection*>();
+	nearGrids = vector<GridSection*>();
 }
 
 void GridSection::addParticle(Particle &p)
@@ -27,12 +27,12 @@ int GridSection::removeParticle(int pID)
 
 void GridSection::addAdjacent(GridSection &gs)
 {
-	adjacentGrids.push_back(gs);
+	adjacentGrids.push_back(&gs);
 }
 
 void GridSection::addNear(GridSection &gs)
 {
-	nearGrids.push_back(gs);
+	nearGrids.push_back(&gs);
 }
 
 void GridSection::step(float time, float speedLimit)
@@ -87,7 +87,7 @@ void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*for
 		//calculate particle with particles from near sectors
 		for (auto sector = nearGrids.begin(); sector != nearGrids.end(); sector++)
 		{
-			for (auto p = sector->particles.begin(); p != sector->particles.end(); p++)
+			for (auto p = (*sector)->particles.begin(); p != (*sector)->particles.end(); p++)
 			{
 				dy = (*i)->y - (*p)->y;
 				dx = (*i)->x - (*p)->x;
@@ -138,7 +138,7 @@ void GridSection::handleCollsions(collisionResolver resolver, float* sizes)
 		//checks for collisions with particles in adjacent grids
 		for (auto sector = nearGrids.begin(); sector != nearGrids.end(); sector++)
 		{
-			for (auto p = sector->particles.begin(); p != sector->particles.end(); p++)
+			for (auto p = (*sector)->particles.begin(); p != (*sector)->particles.end(); p++)
 			{
 				dy = (*i)->y - (*p)->y;
 				dx = (*i)->x - (*p)->x;
