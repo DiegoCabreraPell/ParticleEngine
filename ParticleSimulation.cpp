@@ -87,11 +87,11 @@ int ParticleSimulation::getFreeID()
 
 void ParticleSimulation::step(float timeStep) 
 {
-	//update velocity
-	grid->updateVelocities(timeStep, typeMat, typeForceFuncs);
-	
 	//update position
 	grid->step(timeStep, speedLimit);
+
+	//detect and resolve collisions
+	grid->handleCollsions(resolver, typeSizes);
 	
 	//Refreshing the grid positions
 	grid->clear();
@@ -135,8 +135,8 @@ void ParticleSimulation::step(float timeStep)
 		}
 	}
 
-	//detect and resolve collisions
-	grid->handleCollsions(resolver, typeSizes);
+	//update velocity
+	grid->updateVelocities(timeStep, typeMat, typeForceFuncs);
 }
 
 void ParticleSimulation::setCollisionResolver(collisionResolver res) {
