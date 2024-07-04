@@ -91,7 +91,7 @@ void ParticleSimulation::step(float timeStep)
 	grid->updateVelocities(timeStep, typeMat, typeForceFuncs);
 	
 	//update position
-	grid->step(timeStep);
+	grid->step(timeStep, speedLimit);
 	
 	//Refreshing the grid positions
 	grid->clear();

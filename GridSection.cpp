@@ -35,10 +35,20 @@ void GridSection::addNear(GridSection &gs)
 	nearGrids.push_back(gs);
 }
 
-void GridSection::step(float time)
+void GridSection::step(float time, float speedLimit)
 {
+	float vel, distStep, coeff;
 	for (auto i = particles.begin(); i != particles.end(); i++)
+	{
+		vel = sqrtf(powf((*i)->dx, 2) + powf((*i)->dy, 2));
+		distStep = time * speedLimit;
+		if (vel > distStep) {
+			coeff = distStep / vel;
+			(*i)->dx *= coeff;
+			(*i)->dy *= coeff;
+		}
 		(*i)->step(time);
+	}
 }
 
 void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*forceFuncs)
@@ -48,7 +58,7 @@ void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*for
 	for (auto i = particles.begin(); i != particles.end(); i++)
 	{
 		//Calculate particle with other particles in its sector
-		for (auto j = i; j != particles.end(); j++)
+		for (auto j = i+1; j != particles.end(); j++)
 		{
 			dy = (*i)->y - (*j)->y;
 			dx = (*i)->x - (*j)->x;

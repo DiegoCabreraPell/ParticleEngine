@@ -21,7 +21,7 @@ public:
 
 	void addAdjacent(GridSection &gs);
 	void addNear(GridSection &gs);
-	void step(float time);
+	void step(float time, float speedLimit);
 	void updateVelocities(float time, float** typeMatrix, forceFunc* foreFuncs);
 	void handleCollsions(collisionResolver resolver, float* sizes);
 	void clear();

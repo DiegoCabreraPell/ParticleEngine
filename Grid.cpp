@@ -66,11 +66,11 @@ int Grid::deleteParticle(int pID, float pX, float pY)
 	return gs.removeParticle(pID);
 }
 
-void Grid::step(float time)
+void Grid::step(float time, float speedLimit)
 {
 	for (int i = 0; i < sizeX * sizeY; i++)
 	{
-		sections[i].step(time);
+		sections[i].step(time, speedLimit);
 	}
 }
 
