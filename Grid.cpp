@@ -32,21 +32,18 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
     
 		g1 = &sections[i];
 
-		for (int x = xPos - iGridRad; x < (xPos + iGridRad) && x < numX; x++)
+		for (int x = (xPos - iGridRad > 0) ? xPos - iGridRad : 0; x < (xPos + iGridRad) && x < numX; x++)
 		{
-			for (int y = yPos - iGridRad; y < (yPos + iGridRad) && y < numY; y++)
+			for (int y = (yPos - iGridRad > 0) ? yPos - iGridRad : 0; y < (yPos + iGridRad) && y < numY; y++)
 			{
-				if (x >= 0 && y >= 0 && x != xPos && y != yPos)
+				distance = sqrtf(powf((float)(xPos - x), 2) + powf((float)(yPos - y), 2));
+				if (distance <= gridsRadius && (x != xPos || y != yPos))
 				{
-					distance = sqrtf(powf((float)(xPos - x), 2) + powf((float)(yPos - y), 2));
-					if (distance <= gridsRadius)
-					{
-						g2 = &sections[x + y * numY];
-						g1->addAdjacent(*g2);
+					g2 = &sections[x + y * numY];
+					g1->addAdjacent(*g2);
 
-						if (xPos == x + 1 || xPos == x - 1 || yPos == y + 1 || yPos == y - 1) {
-							g1->addNear(*g2);
-						}
+					if ((xPos == x + 1 || xPos == x - 1 || xPos == x) && (yPos == y + 1 || yPos == y - 1 || yPos == y)) {
+						g1->addNear(*g2);
 					}
 				}
 			}
