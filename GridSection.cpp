@@ -40,7 +40,7 @@ void GridSection::step(float time, float speedLimit)
 	float vel, distStep, coeff;
 	for (auto i = particles.begin(); i != particles.end(); i++)
 	{
-		vel = sqrtf(powf((*i)->dx, 2) + powf((*i)->dy, 2));
+		vel = sqrtf(powf((*i)->dx * time, 2) + powf((*i)->dy * time, 2));
 		distStep = time * speedLimit;
 		if (vel > distStep) {
 			coeff = distStep / vel;
