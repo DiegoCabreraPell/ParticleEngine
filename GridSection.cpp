@@ -64,21 +64,22 @@ void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*for
 			dx = (*i)->x - (*j)->x;
 
 			if (dx == 0.0f)
-				dx = 0.00001;
+				dx = 0.1;
 			if (dy == 0.0f)
-				dy = 0.00001;
+				dy = 0.1;
 
 			distance = sqrtf(powf(dy, 2) + powf(dx, 2));
+
 
 			nx = dx / distance;
 			ny = dy / distance;
 
-			force = forceFuncs[(*j)->type](distance) * typeMatrix[(*i)->type][(*j)->type] * time;
+			force = forceFuncs[(*j)->type](distance) * typeMatrix[(*j)->type][(*i)->type] * time;
 
 			(*i)->addDx(nx * force);
 			(*i)->addDy(ny * force);
 
-			force = forceFuncs[(*i)->type](distance) * typeMatrix[(*j)->type][(*i)->type] * time;
+			force = forceFuncs[(*i)->type](distance) * typeMatrix[(*i)->type][(*j)->type] * time;
 
 			(*j)->addDx(-nx * force);
 			(*j)->addDy(-ny * force);
@@ -102,7 +103,7 @@ void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*for
 				nx = dx / distance;
 				ny = dy / distance;
 
-				force = forceFuncs[(*p)->type](distance) * typeMatrix[(*i)->type][(*p)->type] * time;
+				force = forceFuncs[(*p)->type](distance) * typeMatrix[(*p)->type][(*i)->type] * time;
 
 				(*i)->addDx(nx * force);
 				(*i)->addDy(ny * force);
