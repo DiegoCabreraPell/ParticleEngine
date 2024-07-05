@@ -60,13 +60,13 @@ void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*for
 		//Calculate particle with other particles in its sector
 		for (auto j = i+1; j != particles.end(); j++)
 		{
-			dy = (*i)->y - (*j)->y;
-			dx = (*i)->x - (*j)->x;
+			dy = (*j)->y - (*i)->y;
+			dx = (*j)->x - (*i)->x;
 
 			if (dx == 0.0f)
-				dx = 0.1;
+				dx = 0.1f;
 			if (dy == 0.0f)
-				dy = 0.1;
+				dy = 0.1f;
 
 			distance = sqrtf(powf(dy, 2) + powf(dx, 2));
 
@@ -90,13 +90,13 @@ void GridSection::updateVelocities(float time, float** typeMatrix, forceFunc*for
 		{
 			for (auto p = (*sector)->particles.begin(); p != (*sector)->particles.end(); p++)
 			{
-				dy = (*i)->y - (*p)->y;
-				dx = (*i)->x - (*p)->x;
+				dy = (*p)->y - (*i)->y;
+				dx = (*p)->x - (*i)->x;
 
 				if (dx == 0.0f)
-					dx = 0.00001;
+					dx = 0.1f;
 				if (dy == 0.0f)
-					dy = 0.00001;
+					dy = 0.1f;
 
 				distance = sqrtf(powf(dy, 2) + powf(dx, 2));
 
