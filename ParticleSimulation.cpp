@@ -55,7 +55,14 @@ ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, 
 
 	defaultForceFunc = dForceFunc;
 
-	typeForceFuncs = new forceFunc[nTypes]{defaultForceFunc};
+	typeForceFuncs = new forceFunc[nTypes];
+
+
+	for (int i = 0; i < numTypes; i++)
+	{
+		typeForceFuncs[i] = defaultForceFunc;
+	}
+
 	typeSizes = new float[nTypes] {gSize / 5};
 	typeWeights = new float[nTypes] {1.0f};
 
@@ -129,7 +136,7 @@ void ParticleSimulation::step(float timeStep)
 				p->y = size;
 				p->dy *= -1;
 			}
-			
+
 			grid->insertParticle(*p);
 			count -= 1;
 		}
