@@ -20,11 +20,11 @@ void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance)
 	
 	//displace particles
 
-	p1.addX(nx * distance / 2);
-	p1.addY(ny * distance / 2);
+	p1.addX(-nx * distance / 2);
+	p1.addY(-ny * distance / 2);
 
-	p2.addX(-nx * distance / 2);
-	p2.addY(-ny * distance / 2);
+	p2.addX(nx * distance / 2);
+	p2.addY(ny * distance / 2);
 
 	//Calculate the force of the impact by taking the projection of the force vectors on the normal
 
