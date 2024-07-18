@@ -9,6 +9,7 @@ using namespace std;
 
 class GridSection
 {
+public:
 	vector<Particle*> particles;
 	vector<GridSection*> adjacentGrids;
 	vector<GridSection*> nearGrids;
