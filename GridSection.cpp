@@ -132,7 +132,7 @@ void GridSection::handleCollsions(collisionResolver resolver, float* sizes)
 
 			distance = sqrtf(powf(dy, 2) + powf(dx, 2)) - sizes[(*i)->type] - sizes[(*j)->type];
 
-			if (distance < 0)
+			if (distance < -0)
 				resolver(**i, **j, distance);
 		}
 
@@ -151,7 +151,7 @@ void GridSection::handleCollsions(collisionResolver resolver, float* sizes)
 
 				distance = sqrtf(powf(dy, 2) + powf(dx, 2)) - sizes[(*i)->type] - sizes[(*p)->type];
 
-				if (distance < 0)
+				if (distance < -0)
 					resolver(**i, **p, distance);
 			}
 		}
