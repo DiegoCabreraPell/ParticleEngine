@@ -20,7 +20,7 @@ void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance)
 	p1.addX(- nx * distance / 2);
 	p1.addY(- ny * distance / 2);
 
-	p2.addY(ny * distance / 2);
+	p2.addX(nx * distance / 2);
 	p2.addY(ny * distance / 2);
 
 	p1.addDx(-nx * force);
@@ -28,7 +28,6 @@ void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance)
 	
 	p2.addDx(nx * force);
 	p2.addDy(ny * force);
-
 }
 
 ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, int nTypes, float maxCmptDist, float gSize, forceFunc dForceFunc)
