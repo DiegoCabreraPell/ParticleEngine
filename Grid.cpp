@@ -1,5 +1,6 @@
 #include"Grid.h"
 #include"GridSection.h"
+#include<iostream>
 
 using namespace std;
 #include"math.h"
@@ -12,7 +13,9 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 	sizeX = numX;
 	sizeY = numY;
 
-	float gridsRadius = maxReach / size;
+	float addedOffset = 1.4f;
+
+	float gridsRadius = maxReach / size + addedOffset;
 	int iGridRad = (int) ceil(gridsRadius);
 
 	int numGrid = numX * numY;
@@ -22,32 +25,40 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 	GridSection *g1, *g2;
 
 	//Initilising all gridsections
+
 	sections = new GridSection[numGrid];
 
 	//Filling up the near and adjacent sections of seach gridsections
 	for (int i = 0; i < numGrid; i++)
 	{
 		xPos = i % numY;
-		yPos = i - xPos;
+		yPos = (i - xPos)/numY;
     
 		g1 = &sections[i];
 
+		std::cout << xPos << ", " << yPos << std::endl;
+
 		for (int x = (xPos - iGridRad > 0) ? xPos - iGridRad : 0; x < (xPos + iGridRad) && x < numX; x++)
 		{
-			for (int y = (yPos - iGridRad > 0) ? yPos - iGridRad : 0; y < (yPos + iGridRad) && y < numY; y++)
+			for (int y = (yPos - iGridRad > 0) ? yPos - iGridRad: 0; y < (yPos + iGridRad) && y < numY; y++)
 			{
 				distance = sqrtf(powf((float)(xPos - x), 2) + powf((float)(yPos - y), 2));
-				if (distance <= gridsRadius && (x != xPos || y != yPos))
+				if (distance <= gridsRadius + 1.6f && (x != xPos || y != yPos))
 				{
 					g2 = &sections[x + y * numY];
 					g1->addAdjacent(*g2);
 
+					std:cout << "Adjacent added: " << "( " << x << ", " << y << " )" << std::endl;
+
 					if ((xPos == x + 1 || xPos == x - 1 || xPos == x) && (yPos == y + 1 || yPos == y - 1 || yPos == y)) {
 						g1->addNear(*g2);
+						std::cout << "Near added: " << "( " << x << ", " << y << " )" << std::endl;
 					}
 				}
 			}
 		}
+		std::cout << "Near: " << g1->nearGrids.size() << std::endl;
+		std::cout << "Adjacent: " << g1->adjacentGrids.size() << std::endl;
 	}
 }
 
