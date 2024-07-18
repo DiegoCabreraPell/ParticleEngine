@@ -13,13 +13,18 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
 
-#define NUM_PARTICLES_MAIN 20
-#define NUM_TYPES 1
+#define NUM_PARTICLES_MAIN 250
+#define NUM_TYPES 4
 
 float defaultForceFunc(float x) 
 {
-	return (x - 80.0f) / (80.0f - 10.0f * x);
+	if (x >= 80.0f)
+		return 0;
+	float ans = (80.0f-x)/(10*x + 80.0f);
+	return ans;
 }
+
+void collisonHandler (Particle &p1, Particle &p2, float dist){}
 
 int main()
 {
@@ -59,21 +64,21 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
-		0.008f, 1.0f, 1.0f, 1.0f,
+		0.008f, 1.0f, 0.0f, 0.0f,
 		0.008f, 0.0f, 1.0f, 0.0f,
 		0.008f, 0.0f, 0.0f, 1.0f,
 		0.008f, 1.0f, 1.0f, 1.0f
 	};
 
 	GLfloat typeMatrix[] = {
-		-10.00f, -0.002f, -0.001f, 0.002f,
-		-0.002f, -0.005f, 0.003f, 0.001f,
-		-0.001f, 0.003f, 0.005f, 0.001f,
-		0.002f, 0.001f, 0.001f, -0.005f
+		-40.0f, -40.0f, -40.0f, -40.0f,
+		-40.0f, -40.0f, -40.0f, -40.0f,
+		-40.0f, -40.0f, -40.0f, -40.0f,
+		-40.0f, -40.0f, -40.0f, -40.0f
 	};
 
-	ParticleSimulation simulator = ParticleSimulation(800, 800, num_particles, NUM_TYPES, 88, 20, defaultForceFunc);
-
+	ParticleSimulation simulator = ParticleSimulation(800, 800, num_particles, NUM_TYPES, 88, 40, defaultForceFunc);
+	simulator.setCollisionResolver(collisonHandler);
 	GLfloat randX, randY;
 
 	for (int i = 0; i < NUM_PARTICLES_MAIN; i++)
@@ -94,7 +99,7 @@ int main()
 		}
 	}
 
-	simulator.setSpeedLimit(360.0f);
+	simulator.setSpeedLimit(90.0f);
 
 	// Initilising vertex and index buffers
 	GLfloat vertices[13 * 6 * num_particles] = {};
