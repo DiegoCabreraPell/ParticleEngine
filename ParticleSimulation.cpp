@@ -4,30 +4,40 @@
 
 void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance)
 {
-	float dy, dx, ddx, ddy, nx, ny, force;
+	//Calculate normal of the overlap in the particles
+	float dy, dx, ddx, ddy, nx, ny, projScalar, fx, fy, d;
 
 	dx = p1.x - p2.x;
 	dy = p1.y - p2.y;
 
+	d = sqrtf(powf(dy, 2) + powf(dx, 2));
+
 	ddx = p1.dx - p2.dx;
 	ddy = p1.dy - p2.dy;
-	
-	force = sqrtf(powf(ddx, 2) + powf(ddy, 2));
 
-	nx = dx / distance;
-	ny = dy / distance;
+	nx = dx / d;
+	ny = dy / d;
 	
-	p1.addX(- nx * distance / 2);
-	p1.addY(- ny * distance / 2);
+	//displace particles
 
-	p2.addX(nx * distance / 2);
-	p2.addY(ny * distance / 2);
+	p1.addX(nx * distance / 2);
+	p1.addY(ny * distance / 2);
 
-	p1.addDx(-nx * force);
-	p1.addDy(-ny * force);
+	p2.addX(-nx * distance / 2);
+	p2.addY(-ny * distance / 2);
+
+	//Calculate the force of the impact by taking the projection of the force vectors on the normal
+
+	projScalar = (ddx * dx + ddy * dy)/(d*d);
+
+	fx = projScalar * nx;
+	fy = projScalar * ny;
+
+	p1.addDx(-fx);
+	p1.addDy(-fy);
 	
-	p2.addDx(nx * force);
-	p2.addDy(ny * force);
+	p2.addDx(fx);
+	p2.addDy(fy);
 }
 
 ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, int nTypes, float maxCmptDist, float gSize, forceFunc dForceFunc)
