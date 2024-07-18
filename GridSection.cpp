@@ -120,7 +120,7 @@ void GridSection::handleCollsions(collisionResolver resolver, float* sizes)
 	for (auto i = particles.begin(); i != particles.end(); i++)
 	{
 		//check for collisions to particles in its sector
-		for (auto j = i; j != particles.end(); j++)
+		for (auto j = i+1; j != particles.end(); j++)
 		{
 			dy = (*i)->y - (*j)->y;
 			dx = (*i)->x - (*j)->x;
