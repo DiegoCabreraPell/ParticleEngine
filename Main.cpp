@@ -13,8 +13,8 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
 
-#define NUM_PARTICLES_MAIN 16
-#define NUM_TYPES 1
+#define NUM_PARTICLES_MAIN 200
+#define NUM_TYPES 4
 
 float defaultForceFunc(float x) 
 {
@@ -92,7 +92,7 @@ int main()
 	}
 	for (int i = 0; i < NUM_TYPES; i++)
 	{
-		simulator.setPSize(i, 800 * typeData[4*i]);
+		simulator.setPSize(i, 400 * typeData[4*i]);
 		for (int j = 0; j < NUM_TYPES; j++)
 		{
 			simulator.setTypeInteractionCoefficient(i, j, typeMatrix[i * NUM_TYPES + j]);
