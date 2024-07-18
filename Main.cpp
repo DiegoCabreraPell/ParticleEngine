@@ -13,8 +13,8 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
 
-#define NUM_PARTICLES_MAIN 250
-#define NUM_TYPES 4
+#define NUM_PARTICLES_MAIN 16
+#define NUM_TYPES 1
 
 float defaultForceFunc(float x) 
 {
@@ -64,21 +64,21 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
-		0.008f, 1.0f, 0.0f, 0.0f,
+		0.016f, 1.0f, 0.0f, 0.0f,
 		0.008f, 0.0f, 1.0f, 0.0f,
 		0.008f, 0.0f, 0.0f, 1.0f,
 		0.008f, 1.0f, 1.0f, 1.0f
 	};
 
 	GLfloat typeMatrix[] = {
-		-40.0f, -40.0f, -40.0f, -40.0f,
-		-40.0f, -40.0f, -40.0f, -40.0f,
-		-40.0f, -40.0f, -40.0f, -40.0f,
-		-40.0f, -40.0f, -40.0f, -40.0f
+		40.0f, 40.0f, 40.0f, 40.0f,
+		40.0f, 40.0f, 40.0f, -40.0f,
+		40.0f, 40.0f, -40.0f, -40.0f,
+		40.0f, -40.0f, -40.0f, -40.0f
 	};
 
 	ParticleSimulation simulator = ParticleSimulation(800, 800, num_particles, NUM_TYPES, 88, 40, defaultForceFunc);
-	simulator.setCollisionResolver(collisonHandler);
+	//simulator.setCollisionResolver(collisonHandler);
 	GLfloat randX, randY;
 
 	for (int i = 0; i < NUM_PARTICLES_MAIN; i++)
@@ -92,7 +92,7 @@ int main()
 	}
 	for (int i = 0; i < NUM_TYPES; i++)
 	{
-		simulator.setPSize(i, 800 * 0.008);
+		simulator.setPSize(i, 800 * typeData[4*i]);
 		for (int j = 0; j < NUM_TYPES; j++)
 		{
 			simulator.setTypeInteractionCoefficient(i, j, typeMatrix[i * NUM_TYPES + j]);
@@ -126,6 +126,7 @@ int main()
 		timeDiff = crntTime - prevTime;
 		if (timeDiff >= 1.0f / 60.0f)
 		{
+			prevTime = crntTime;
 			// Specify the color of the background
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			// Clean the back buffer and assign the new color to it
