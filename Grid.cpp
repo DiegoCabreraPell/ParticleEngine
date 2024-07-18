@@ -13,7 +13,7 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 	sizeX = numX;
 	sizeY = numY;
 
-	float addedOffset = 1.4f;
+	float addedOffset = 1.5f;
 
 	float gridsRadius = maxReach / size + addedOffset;
 	int iGridRad = (int) ceil(gridsRadius);
