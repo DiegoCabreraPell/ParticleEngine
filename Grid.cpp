@@ -36,7 +36,7 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
     
 		g1 = &sections[i];
 
-		std::cout << xPos << ", " << yPos << std::endl;
+		//std::cout << xPos << ", " << yPos << std::endl;
 
 		for (int x = (xPos - iGridRad > 0) ? xPos - iGridRad : 0; x < (xPos + iGridRad) && x < numX; x++)
 		{
@@ -48,17 +48,17 @@ Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 					g2 = &sections[x + y * numY];
 					g1->addAdjacent(*g2);
 
-					std:cout << "Adjacent added: " << "( " << x << ", " << y << " )" << std::endl;
+					//std:cout << "Adjacent added: " << "( " << x << ", " << y << " )" << std::endl;
 
 					if ((xPos == x + 1 || xPos == x - 1 || xPos == x) && (yPos == y + 1 || yPos == y - 1 || yPos == y)) {
 						g1->addNear(*g2);
-						std::cout << "Near added: " << "( " << x << ", " << y << " )" << std::endl;
+						//std::cout << "Near added: " << "( " << x << ", " << y << " )" << std::endl;
 					}
 				}
 			}
 		}
-		std::cout << "Near: " << g1->nearGrids.size() << std::endl;
-		std::cout << "Adjacent: " << g1->adjacentGrids.size() << std::endl;
+		//std::cout << "Near: " << g1->nearGrids.size() << std::endl;
+		//std::cout << "Adjacent: " << g1->adjacentGrids.size() << std::endl;
 	}
 }
 
