@@ -64,7 +64,7 @@ int main()
 
 	//creating type data
 	GLfloat typeData[] = {
-		0.016f, 1.0f, 0.0f, 0.0f,
+		0.008f, 1.0f, 0.0f, 0.0f,
 		0.008f, 0.0f, 1.0f, 0.0f,
 		0.008f, 0.0f, 0.0f, 1.0f,
 		0.008f, 1.0f, 1.0f, 1.0f
@@ -72,10 +72,15 @@ int main()
 
 	GLfloat typeMatrix[] = {
 		40.0f, 40.0f, 40.0f, 40.0f,
-		40.0f, 40.0f, 40.0f, -40.0f,
 		40.0f, 40.0f, -40.0f, -40.0f,
-		40.0f, -40.0f, -40.0f, -40.0f
+		40.0f, -40.0f, 40.0f, -40.0f,
+		40.0f, -40.0f, -40.0f, 40.0f
 	};
+
+	float fps = 60.0f;
+	float ts = 1.0f / fps;
+	int substeps = 1;
+	float ss = ts / (float) substeps;
 
 	ParticleSimulation simulator = ParticleSimulation(800, 800, num_particles, NUM_TYPES, 88, 40, defaultForceFunc);
 	//simulator.setCollisionResolver(collisonHandler);
@@ -124,7 +129,7 @@ int main()
 	{	
 		crntTime = glfwGetTime();
 		timeDiff = crntTime - prevTime;
-		if (timeDiff >= 1.0f / 60.0f)
+		if (timeDiff >= ts)
 		{
 			prevTime = crntTime;
 			// Specify the color of the background
@@ -136,7 +141,8 @@ int main()
 			glUniform1f(uniID, 0.0f);
 
 			//Simulation
-			simulator.step(1.0f / 60.0f);
+			for (int i = 0; i < substeps; i++)
+				simulator.step(ss);
 			
 			fillVertices(simulator.particleList(), vertices, num_particles, typeData, 4);
 
