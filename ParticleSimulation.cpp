@@ -56,6 +56,9 @@ ParticleSimulation::ParticleSimulation(int pHeight, int pWidth, int mParticles, 
 	maxParticles = mParticles;
 	numParticles = 0;
 	speedLimit = 100.0f / 60.0f;
+	energyDampener = 1.0f;
+	universalX = 0.0f;
+	universalY - 0.0f;
 
 	typeMat = new float*[nTypes];
 
@@ -123,6 +126,11 @@ void ParticleSimulation::step(float timeStep)
 		p = particles[ind++];
 		if (p != NULL)
 		{
+			p->dx *= energyDampener;
+			p->dy *= energyDampener;
+			p->addDx(universalX);
+			p->addDy(universalY);
+
 			//bounds correction
 			size = typeSizes[p->type];
 			if (p->x > pixelWidth - size)
@@ -263,4 +271,14 @@ Particle** ParticleSimulation::particleList () const
 void ParticleSimulation::setTypeInteractionCoefficient(int t1, int t2, float coeff)
 {
 	typeMat[t1][t2] = coeff;
+}
+
+void ParticleSimulation::setDampener(float c)
+{
+	energyDampener = c;
+}
+
+void ParticleSimulation::setUniversalForce(float dx, float dy) {
+	universalX = dx;
+	universalY = dy;
 }

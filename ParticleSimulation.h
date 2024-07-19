@@ -16,7 +16,7 @@ protected:
 
 	//simulation meta information
 	int numTypes, gridSize;
-	float speedLimit;
+	float speedLimit, energyDampener, universalX, universalY;
 	float* typeSizes, *typeWeights;
 	collisionResolver resolver;
 
@@ -51,6 +51,8 @@ public:
 	bool isFull() const;
 	Particle** particleList() const;
 	void setTypeInteractionCoefficient(int t1, int t2, float coeff);
+	void setDampener(float c);
+	void setUniversalForce(float dx, float dy);
 };
 
 #endif
