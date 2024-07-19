@@ -19,34 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EBO.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridSection.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleSimulation.h" />
-    <ClInclude Include="shaderClass.h" />
     <ClInclude Include="SimTypes.h" />
-    <ClInclude Include="VAO.h" />
-    <ClInclude Include="VBO.h" />
-    <ClInclude Include="fillBuffer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="default.frag" />
-    <None Include="default.vert" />
-    <None Include="particle2d.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="EBO.cpp" />
-    <ClCompile Include="glad.c" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GridSection.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleSimulation.cpp" />
-    <ClCompile Include="shaderClass.cpp" />
-    <ClCompile Include="VAO.cpp" />
-    <ClCompile Include="VBO.cpp" />
-    <ClCompile Include="fillBuffer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
