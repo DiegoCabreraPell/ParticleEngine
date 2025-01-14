@@ -1,9 +1,12 @@
 #include"Grid.h"
 #include"GridSection.h"
-#include<iostream>
+#include "SimTypes.h"
+#include"math.h"
+#include <thread>
+
+#define NUM_THREADS 10
 
 using namespace std;
-#include"math.h"
 
 Grid::Grid(int numX, int numY, float size, float maxReach, int cap)
 {
@@ -84,10 +87,30 @@ void Grid::step(float time, float speedLimit)
 
 void Grid::updateVelocities(float time, float** typeMatrix, forceFunc* forceFuncs)
 {
-	for (int i = 0; i < sizeX * sizeY; i++)
+    thread* threads[NUM_THREADS];
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threads[i] = new thread(
+                &Grid::threadUpdateVelocity,
+                this,
+                time,
+                typeMatrix,
+                forceFuncs,
+                i);
+    }
+
+    for (int i = 0; i < NUM_THREADS; i++) {
+        threads[i]->join();
+        delete threads[i];
+    }
+}
+
+void Grid::threadUpdateVelocity(float time, float** typeMatrix,
+        forceFunc* forceFuncs, int thread_num) {
+    for (int i = thread_num; i < sizeX * sizeY; i+=NUM_THREADS)
 	{
 		sections[i].updateVelocities(time, typeMatrix, forceFuncs);
-	}
+	}    
 }
 
 void Grid::handleCollsions(collisionResolver resolver, float* sizes)

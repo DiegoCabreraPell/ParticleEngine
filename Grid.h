@@ -19,6 +19,10 @@ public:
 	void updateVelocities(float time, float** typeMatrix, forceFunc* forceFuncs);
 	void handleCollsions(collisionResolver resolver, float* sizes);
 	void clear();
+
+private:
+    void threadUpdateVelocity(float time, float** typeMatrix,
+        forceFunc* forceFuncs, int thread_num);
 };
 
 #endif 
