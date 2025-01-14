@@ -1,6 +1,9 @@
 #include"ParticleSimulation.h"
 #include"Particle.h"
 #include"SimTypes.h"
+#include <cmath>
+# include<cstddef>
+
 
 void DEFAULTCOLLISIONRESOLVER(Particle &p1, Particle &p2, float distance)
 {

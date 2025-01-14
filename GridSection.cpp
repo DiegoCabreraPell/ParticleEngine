@@ -1,5 +1,6 @@
 #include "GridSection.h"
-#include "vector"
+#include <vector>
+#include <cmath>
 using namespace std;
 
 GridSection::GridSection() 
